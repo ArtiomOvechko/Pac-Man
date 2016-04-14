@@ -1,0 +1,68 @@
+﻿<Window x:Class="GameView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameView"
+        mc:Ignorable="d"
+        Title="MainWindow" Name="wind" Height="700" Width="658" Keyboard.KeyDown="fieldCan_KeyDown"  Keyboard.KeyUp="fieldCan_KeyUp">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Name="newGameBtn" Grid.Row="0" Content="Новая игра" Click="newGameBtn_Click"/>
+        <Button Name="topScoreBtn" Grid.Row="0" Grid.Column="1" Content="Рекорды" Click="TopScoreBtn_OnClick"/>
+        <Button Name="reserScoreBtn" Grid.Row="0" Grid.Column="2" Content="Сброс рекордов" Click="ResetScoreBtn_OnClick"/>
+        <ComboBox Name="blinkyAs" Grid.Row="0" Grid.Column="3" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged"  Foreground="Red"/>
+        <ComboBox Name="pinkyAs" Grid.Row="0" Grid.Column="4" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Fuchsia"/>
+        <ComboBox Name="inkyAs" Grid.Row="0" Grid.Column="5" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Blue"/>
+        <ComboBox Name="clydeAs" Grid.Row="0" Grid.Column="6" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Orange"/>
+        <Canvas Name="fieldCan" Grid.Row="1" Grid.RowSpan="34" Grid.Column="0" Grid.ColumnSpan="7" Background="Black">
+        </Canvas>
+        <TextBlock Name="records" Grid.Row="1" Grid.RowSpan="34" Grid.Column="0" Grid.ColumnSpan="7" Background="White" Foreground="Black">
+        </TextBlock>
+    </Grid>
+</Window>

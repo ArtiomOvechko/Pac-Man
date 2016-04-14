@@ -1,0 +1,7 @@
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Ghost\bin\Debug\Ghost.dll
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Ghost\bin\Debug\Ghost.pdb
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Ghost\bin\Debug\PackMan.dll
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Ghost\bin\Debug\PackMan.pdb
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Ghost\obj\Debug\Ghost.csprojResolveAssemblyReference.cache
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Ghost\obj\Debug\Ghost.dll
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Ghost\obj\Debug\Ghost.pdb

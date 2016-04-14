@@ -1,0 +1,9 @@
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RedGhostBehavior\bin\Debug\RedGhostBehavior.dll
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RedGhostBehavior\bin\Debug\RedGhostBehavior.pdb
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RedGhostBehavior\bin\Debug\Ghost.dll
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RedGhostBehavior\bin\Debug\PackMan.dll
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RedGhostBehavior\bin\Debug\Ghost.pdb
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RedGhostBehavior\bin\Debug\PackMan.pdb
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RedGhostBehavior\obj\Debug\RedGhostBehavior.csprojResolveAssemblyReference.cache
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RedGhostBehavior\obj\Debug\RedGhostBehavior.dll
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RedGhostBehavior\obj\Debug\RedGhostBehavior.pdb
