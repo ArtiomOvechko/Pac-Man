@@ -65,13 +65,14 @@ namespace GameView
             _pathPlug = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\Plugins";
             InitBehaviors();
             InitializeComponent();
+            NameGui();
             InitPictures();
             AddEventHandlers();
             DisplayRecords(SelectRecords());
             ResizeMode = ResizeMode.NoResize;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             MessageBox.Show(
-                "Выберите в правом верхнем углу для каждого из призраков соответсвующий плагин поведения (можно выбирать одинаковые для разных призраков)");
+                Properties.Resources.GreetingsMessage);
         }
 
         //Display
@@ -115,6 +116,13 @@ namespace GameView
                 _imgField[t.Item2, t.Item3] = i;
                 fieldCan.Children.Add(i);
             }
+        }
+
+        private void NameGui()
+        {
+            newGameBtn.Content = Properties.Resources.NewGame;
+            topScoreBtn.Content = Properties.Resources.Records;
+            reserScoreBtn.Content = Properties.Resources.RecordsClear;
         }
 
         private void InitPictures()
@@ -244,8 +252,8 @@ namespace GameView
 
         private void DisplayPlayerStatus()
         {
-            Title = String.Format("Уровень: {0} Очки: {1} Жизни: {2}", _player.LevelNumber, _player.Score,
-                _player.Lives);
+            Title = String.Format("{3}: {0} {4}: {1} {5}: {2}", _player.LevelNumber, _player.Score,
+                _player.Lives, Properties.Resources.Level, Properties.Resources.Score, Properties.Resources.Lives);
         }
 
         //Core process of gameplay
@@ -274,22 +282,14 @@ namespace GameView
 
         private void StepParallelTicker_Tick(object sender, EventArgs e)
         {
-            try
-            {
-                _player.Level.Blinky.Move();
-                _player.Level.Pinky.Move();
-                _player.Level.Inky.Move();
-                _player.Level.Clyde.Move();
-                if (_player.Level.FleeTime > _criticalValue)
-                    _player.Level.FleeTime--;
-                else
-                    _player.Level.SetNormal();
-            }
-            catch (NullReferenceException)
-            {
-                MessageBox.Show("Нет плагинов поведения призраков - поместите их в папку Plugins каталога игры и запустите игру заново");
-                Close();
-            }
+            _player.Level.Blinky.Move();
+            _player.Level.Pinky.Move();
+            _player.Level.Inky.Move();
+            _player.Level.Clyde.Move();
+            if (_player.Level.FleeTime > _criticalValue)
+                _player.Level.FleeTime--;
+            else
+                _player.Level.SetNormal();
         }
 
         private void NextLevel()
@@ -336,42 +336,39 @@ namespace GameView
         //
         private void fieldCan_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Up)
+            if (_player != null)
             {
-                _player.Level.Pacman.Moving = true;
-                _player.Level.Pacman.Direction = _northDirection;
-                e.Handled = true;
-            }
-            if (e.Key == Key.Down)
-            {
-                _player.Level.Pacman.Moving = true;
-                _player.Level.Pacman.Direction = _southDirection;
-                e.Handled = true;
-            }
-            if (e.Key == Key.Right)
-            {
-                _player.Level.Pacman.Moving = true;
-                _player.Level.Pacman.Direction = _eastDirection;
-                e.Handled = true;
-            }
-            if (e.Key == Key.Left)
-            {
-                _player.Level.Pacman.Moving = true;
-                _player.Level.Pacman.Direction = _westDirection;
-                e.Handled = true;
+                if (e.Key == Key.Up)
+                {
+                    _player.Level.Pacman.Moving = true;
+                    _player.Level.Pacman.Direction = _northDirection;
+                    e.Handled = true;
+                }
+                if (e.Key == Key.Down)
+                {
+                    _player.Level.Pacman.Moving = true;
+                    _player.Level.Pacman.Direction = _southDirection;
+                    e.Handled = true;
+                }
+                if (e.Key == Key.Right)
+                {
+                    _player.Level.Pacman.Moving = true;
+                    _player.Level.Pacman.Direction = _eastDirection;
+                    e.Handled = true;
+                }
+                if (e.Key == Key.Left)
+                {
+                    _player.Level.Pacman.Moving = true;
+                    _player.Level.Pacman.Direction = _westDirection;
+                    e.Handled = true;
+                }
             }
         }
 
         private void fieldCan_KeyUp(object sender, KeyEventArgs e)
         {
-            try
-            {
+            if(_player != null)
                 _player.Level.Pacman.Moving = false;
-            }
-            catch
-            {
-                // ignored
-            }
         }
 
         //Combobox actions
@@ -391,38 +388,40 @@ namespace GameView
 
         private void ghostAs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            var asm = sender as ComboBox;
+            var t = typeof (GhostBehavior);
+            if (asm != null)
             {
-                var asm = sender as ComboBox;
-                var t = typeof (GhostBehavior);
-                if (asm != null)
+                var path = asm.SelectedItem as string;
+                if (path != null)
                 {
-                    var path = asm.SelectedItem as string;
-                    if (path != null)
+                    var type =
+                        Assembly.LoadFrom(path).GetTypes().FirstOrDefault(a => t.IsAssignableFrom(a) && !a.IsAbstract);
+                    if (type != null)
                     {
-                        var type = Assembly.LoadFrom(path).GetTypes().FirstOrDefault(a => t.IsAssignableFrom(a) && !a.IsAbstract);
                         ghostType ghostSelected = (ghostType) Enum.Parse(typeof (ghostType), asm.Name);
                         switch (ghostSelected)
                         {
                             case ghostType.blinkyAs:
-                                _behaviors[0] = (GhostBehavior)Activator.CreateInstance(type);
+                                _behaviors[0] = (GhostBehavior) Activator.CreateInstance(type);
                                 break;
                             case ghostType.pinkyAs:
-                                _behaviors[1] = (GhostBehavior)Activator.CreateInstance(type);
+                                _behaviors[1] = (GhostBehavior) Activator.CreateInstance(type);
                                 break;
                             case ghostType.inkyAs:
-                                _behaviors[2] = (GhostBehavior)Activator.CreateInstance(type);
+                                _behaviors[2] = (GhostBehavior) Activator.CreateInstance(type);
                                 break;
                             case ghostType.clydeAs:
-                                _behaviors[3] = (GhostBehavior)Activator.CreateInstance(type);
+                                _behaviors[3] = (GhostBehavior) Activator.CreateInstance(type);
                                 break;
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show(Properties.Resources.PluginsErrorMessage);
+                        Close();
+                    }
                 }
-            }
-            catch
-            {
-                MessageBox.Show("Нет доступных сборок!");
             }
         }
 
@@ -485,7 +484,7 @@ namespace GameView
 
         private void DisplayRecords(DataTable dt)
         {
-            records.Text = string.Format("РЕКОРДЫ: \r\n");
+            records.Text = string.Format("{0}: \r\n", Properties.Resources.Records);
             foreach (DataRow row in dt.Rows)
             {
                 records.Text += String.Format("{0} {1} \r\n", row["name"], row["score"]);

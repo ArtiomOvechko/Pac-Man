@@ -53,9 +53,9 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Name="newGameBtn" Grid.Row="0" Content="Новая игра" Click="newGameBtn_Click"/>
-        <Button Name="topScoreBtn" Grid.Row="0" Grid.Column="1" Content="Рекорды" Click="TopScoreBtn_OnClick"/>
-        <Button Name="reserScoreBtn" Grid.Row="0" Grid.Column="2" Content="Сброс рекордов" Click="ResetScoreBtn_OnClick"/>
+        <Button Name="newGameBtn" Grid.Row="0"  Click="newGameBtn_Click"/>
+        <Button Name="topScoreBtn" Grid.Row="0" Grid.Column="1"  Click="TopScoreBtn_OnClick"/>
+        <Button Name="reserScoreBtn" Grid.Row="0" Grid.Column="2"  Click="ResetScoreBtn_OnClick"/>
         <ComboBox Name="blinkyAs" Grid.Row="0" Grid.Column="3" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged"  Foreground="Red"/>
         <ComboBox Name="pinkyAs" Grid.Row="0" Grid.Column="4" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Fuchsia"/>
         <ComboBox Name="inkyAs" Grid.Row="0" Grid.Column="5" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Blue"/>

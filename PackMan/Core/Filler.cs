@@ -318,25 +318,33 @@ namespace PackMan.Core
 
         private bool ManyEmpty(IField field, int y, int x)
         {
-            try {
-                if ((field.GameField[y - 1, x] as Empty) != null && (field.GameField[y - 1, x - 1] as Empty) != null && (field.GameField[y, x - 1] as Empty) != null)
+            if (y == field.Height - 1 || y == _initialValue || x == field.Width - 1 || x == _initialValue)
+            {
+                return false;
+            }
+            else
+            {
+                if ((field.GameField[y - 1, x] as Empty) != null && (field.GameField[y - 1, x - 1] as Empty) != null &&
+                    (field.GameField[y, x - 1] as Empty) != null)
                 {
                     return true;
                 }
-                if ((field.GameField[y + 1, x] as Empty) != null && (field.GameField[y + 1, x - 1] as Empty) != null && (field.GameField[y, x - 1] as Empty) != null)
+                if ((field.GameField[y + 1, x] as Empty) != null && (field.GameField[y + 1, x - 1] as Empty) != null &&
+                    (field.GameField[y, x - 1] as Empty) != null)
                 {
                     return true;
                 }
-                if ((field.GameField[y, x - 1] as Empty) != null && (field.GameField[y + 1, x - 1] as Empty) != null && (field.GameField[y + 1, x] as Empty) != null)
+                if ((field.GameField[y, x - 1] as Empty) != null && (field.GameField[y + 1, x - 1] as Empty) != null &&
+                    (field.GameField[y + 1, x] as Empty) != null)
                 {
                     return true;
                 }
-                if ((field.GameField[y, x + 1] as Empty) != null && (field.GameField[y + 1, x + 1] as Empty) != null && (field.GameField[y + 1, x] as Empty) != null)
+                if ((field.GameField[y, x + 1] as Empty) != null && (field.GameField[y + 1, x + 1] as Empty) != null &&
+                    (field.GameField[y + 1, x] as Empty) != null)
                 {
                     return true;
                 }
             }
-            catch (IndexOutOfRangeException) { }
             return false;
         }
 

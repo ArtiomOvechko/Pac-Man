@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\zorka\Documents\Visual Studio 2015\Projects\PacMan\GameView\obj\Debug\
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\obj\Debug\
 GameView
 none
 false
 DEBUG;TRACE
-C:\Users\zorka\Documents\Visual Studio 2015\Projects\PacMan\GameView\App.xaml
-11151548125
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\App.xaml
+2507153006
 
 101040051910
-22-588103931
-MainWindow.xaml;
+22-1420598208
+MainWindow.xaml;Resources\lang.xaml;
 
-True
+False
 

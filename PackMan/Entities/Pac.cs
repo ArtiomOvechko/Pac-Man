@@ -12,6 +12,7 @@ namespace PackMan.Entities
         private readonly IField _field;
         private bool _moving;
         private ILevel _level;
+        private const int _initialValue = 0;
         private const int _smallScoreBonus = 100;
         private const int _normalScoreBonus = 500;
         private IObstacle[,] GameField
@@ -122,13 +123,15 @@ namespace PackMan.Entities
 
         private void MoveLeft()
         {
-            try {
+            if(_x!=_initialValue || _y!=Level.GameField.Height/2-1)
+            { 
                 if ((GameField[_y, _x - 1] is Wall) == false)
                 {
                     EatPoint(_y, _x - 1);
                     _x -= 1;
-                } }
-            catch (IndexOutOfRangeException)
+                }
+            }
+            else
             {
                 _x = 31;
             }
@@ -136,13 +139,15 @@ namespace PackMan.Entities
 
         private void MoveRight()
         {
-            try {
+            if (_x != Level.GameField.Width-1 || _y != Level.GameField.Height / 2 - 1)
+            {
                 if ((GameField[_y, _x + 1] is Wall) == false)
                 {
                     EatPoint(_y, _x + 1);
                     _x += 1;
-                } }
-            catch (IndexOutOfRangeException)
+                }
+            }
+            else
             {
                 _x = 0;
             }

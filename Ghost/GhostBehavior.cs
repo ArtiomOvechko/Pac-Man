@@ -46,7 +46,7 @@ namespace Ghost
                 if (NoGhost(x, y + 1))
                     _freeCells.Add(new Tuple<int, int>(x, y + 1));
             }
-            try
+            if (x != 0 || y != _owner.Level.GameField.Height / 2 - 1)
             {
                 if (!(_owner.Level.GameField.GameField[y, x - 1] is Wall))
                 {
@@ -54,12 +54,12 @@ namespace Ghost
                         _freeCells.Add(new Tuple<int, int>(x - 1, y));
                 }
             }
-            catch
+            else
             {
-                if (NoGhost(x + 30, y))
-                    _freeCells.Add(new Tuple<int, int>(x + 30, y));
+                if (NoGhost(_owner.Level.GameField.Width-1, y))
+                    _freeCells.Add(new Tuple<int, int>(_owner.Level.GameField.Width - 1, y));
             }
-            try
+            if (x != _owner.Level.GameField.Width - 1 || y != _owner.Level.GameField.Height / 2 - 1)
             {
                 if (!(_owner.Level.GameField.GameField[y, x + 1] is Wall))
                 {
@@ -67,9 +67,9 @@ namespace Ghost
                         _freeCells.Add(new Tuple<int, int>(x + 1, y));
                 }
             }
-            catch
+            else
             {
-                if (NoGhost(x - 30, y))
+                if (NoGhost(1, y))
                     _freeCells.Add(new Tuple<int, int>(x - 30, y));
             }
             switch (_freeCells.Count())
@@ -101,7 +101,7 @@ namespace Ghost
 
         protected void MarkVisited()
         {
-            _freeCells.Remove(_freeCells.Where(x => x.Item1 == _owner.OldX && x.Item2 == _owner.OldY).FirstOrDefault());
+            _freeCells.Remove(_freeCells.FirstOrDefault(x => x.Item1 == _owner.OldX && x.Item2 == _owner.OldY));
         }
 
         protected double GetDistance(int x1, int y1, int x2, int y2)

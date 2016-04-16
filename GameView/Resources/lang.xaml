@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:GameView.Resources"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <v:String x:Key="NewGame">New game</v:String>
+    <v:String x:Key="TopScore">Top score</v:String>
+    <v:String x:Key="ClearScore">Clear top score</v:String>
+    <v:String x:Key="PlugInError">No plugins available! Please put your plug-in in Plugins subfolder and restart the game.</v:String>
+    <v:String x:Key="GreetingMessage">Choose an approprite behavior plugin for each ghost from the top-right corner lists (you can choose the same behavior for different ghosts)</v:String>
+</ResourceDictionary>
