@@ -26,3 +26,4 @@ C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\E
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\System.Data.SQLite.xml
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\obj\Debug\App.baml
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\obj\Debug\Resources\lang.baml
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\obj\Debug\Resources\lang.ru-RU.baml

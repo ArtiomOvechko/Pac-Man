@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <v:String x:Key="Score">Очки</v:String>
+    <v:String x:Key="Level">Уровень</v:String>
+    <v:String x:Key="Lives">Жизни</v:String>
+    <v:String x:Key="NewGame">Новая игра</v:String>
+    <v:String x:Key="TopScore">Рекорды</v:String>
+    <v:String x:Key="ClearScore">Очистить рекорды</v:String>
+    <v:String x:Key="PlugInError">Нет доступных плагинов! Пожалуйста, поместите плагин во вложенную папку Plugins и перезапустите игру</v:String>
+    <v:String x:Key="GreetingMessage">Выбери соответсвующий плагин поведения в правом верхнему углу для каждого из привидений (можно выбирать одинаковый плагин для разных привидений)</v:String>
+</ResourceDictionary>

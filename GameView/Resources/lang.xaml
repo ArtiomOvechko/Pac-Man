@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:GameView.Resources"
                     xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <v:String x:Key="Score">Score</v:String>
+    <v:String x:Key="Level">Level</v:String>
+    <v:String x:Key="Lives">Lives</v:String>
     <v:String x:Key="NewGame">New game</v:String>
     <v:String x:Key="TopScore">Top score</v:String>
     <v:String x:Key="ClearScore">Clear top score</v:String>

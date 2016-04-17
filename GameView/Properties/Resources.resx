@@ -118,34 +118,4 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GreetingsMessage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GreetingsMessage.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
-  </data>
-  <data name="Level" xml:space="preserve">
-    <value>Level</value>
-    <comment>Level of game</comment>
-  </data>
-  <data name="Lives" xml:space="preserve">
-    <value>Lives</value>
-    <comment>Lives of player</comment>
-  </data>
-  <data name="NewGame" xml:space="preserve">
-    <value>New game</value>
-    <comment>New game button text</comment>
-  </data>
-  <data name="PluginsErrorMessage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PluginsErrorMessage.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
-  </data>
-  <data name="Records" xml:space="preserve">
-    <value>Top score</value>
-    <comment>Top records </comment>
-  </data>
-  <data name="RecordsClear" xml:space="preserve">
-    <value>Clear top score</value>
-    <comment>Delete all records button text</comment>
-  </data>
-  <data name="Score" xml:space="preserve">
-    <value>Score</value>
-    <comment>Score of game</comment>
-  </data>
 </root>

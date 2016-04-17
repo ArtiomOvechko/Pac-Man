@@ -17,6 +17,7 @@ using PackMan.Interfaces;
 using System.Data.SQLite;
 using System.Data;
 using System.Configuration;
+using System.Globalization;
 
 namespace GameView
 {
@@ -58,6 +59,7 @@ namespace GameView
         private const int _southDirection = 3;
         private const int _westDirection = 4;
         private const int _comboDefaultIndex = 0;
+        private const string _windowTitle = "Pac-Man Game";
         private enum ghostType { blinkyAs, pinkyAs, inkyAs, clydeAs}
 
         public MainWindow()
@@ -65,19 +67,19 @@ namespace GameView
             _pathPlug = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\Plugins";
             InitBehaviors();
             InitializeComponent();
-            NameGui();
             InitPictures();
             AddEventHandlers();
-            DisplayRecords(SelectRecords());
+            FormatRecords(SelectRecords());
             ResizeMode = ResizeMode.NoResize;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            MessageBox.Show(
-                Properties.Resources.GreetingsMessage);
+            MessageBox.Show(FindResource("GreetingMessage").ToString());
+            Title = _windowTitle;
         }
 
         //Display
         //
         //
+
         private void DrawField()
         {
             fieldCan.Children.Clear();
@@ -116,13 +118,6 @@ namespace GameView
                 _imgField[t.Item2, t.Item3] = i;
                 fieldCan.Children.Add(i);
             }
-        }
-
-        private void NameGui()
-        {
-            newGameBtn.Content = Properties.Resources.NewGame;
-            topScoreBtn.Content = Properties.Resources.Records;
-            reserScoreBtn.Content = Properties.Resources.RecordsClear;
         }
 
         private void InitPictures()
@@ -228,6 +223,7 @@ namespace GameView
         {
             _stepTicker.Tick += StepTicker_Tick;
             _stepParallelTicker.Tick += StepParallelTicker_Tick;
+            App.LanguageChanged += LanguageChanged;
         }
 
         private void InitBehaviors()
@@ -252,8 +248,7 @@ namespace GameView
 
         private void DisplayPlayerStatus()
         {
-            Title = String.Format("{3}: {0} {4}: {1} {5}: {2}", _player.LevelNumber, _player.Score,
-                _player.Lives, Properties.Resources.Level, Properties.Resources.Score, Properties.Resources.Lives);
+            Title = $"{FindResource("Level")}: {_player.LevelNumber} {FindResource("Score")}: {_player.Score} {FindResource("Lives")}: {_player.Lives}";
         }
 
         //Core process of gameplay
@@ -329,6 +324,11 @@ namespace GameView
             NewGame();
             records.Visibility = Visibility.Hidden;
             ChangeComboStatus(false);
+        }
+
+        private void LanguageChanged(Object sender, EventArgs e)
+        {
+            FormatRecords(SelectRecords());
         }
 
         //Arrow keys events
@@ -418,26 +418,53 @@ namespace GameView
                     }
                     else
                     {
-                        MessageBox.Show(Properties.Resources.PluginsErrorMessage);
+                        MessageBox.Show(FindResource("PlugInError").ToString());
                         Close();
                     }
                 }
             }
         }
 
+        private void LanguageBox_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            foreach (var lang in App.Languages)
+            {
+                ComboBoxItem item = new ComboBoxItem();
+                item.Content = lang.DisplayName;
+                item.Tag = lang;
+                languageBox.Items.Add(lang);
+            }
+            var index = languageBox.Items.IndexOf(App.Language);
+            languageBox.SelectedIndex = index;
+        }
+
+        private void LanguageBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CultureInfo item = languageBox.SelectedItem as CultureInfo; 
+            if (item != null)
+            {
+                App.Language = item;
+            }
+        }
+
+        //Score buttons events
         private void TopScoreBtn_OnClick(object sender, RoutedEventArgs e)
         {
             _stepTicker.Stop();
             _stepParallelTicker.Stop();
-            DisplayRecords(SelectRecords());
+            FormatRecords(SelectRecords());
+            records.Visibility = Visibility.Visible;
             ChangeComboStatus(true);
+            Title = _windowTitle;
         }
 
         private void ResetScoreBtn_OnClick(object sender, RoutedEventArgs e)
         {
             DeleteRecords();
-            DisplayRecords(SelectRecords());
+            FormatRecords(SelectRecords());
+            records.Visibility = Visibility.Visible;
             ChangeComboStatus(true);
+            Title = _windowTitle;
         }
 
         private void ChangeComboStatus(bool b)
@@ -446,6 +473,8 @@ namespace GameView
             pinkyAs.IsEnabled = b;
             inkyAs.IsEnabled = b;
             clydeAs.IsEnabled = b;
+            languageBox.IsEnabled = b;
+            Title = _windowTitle;
         }
 
         //DataBase operations
@@ -461,7 +490,8 @@ namespace GameView
             using (SQLiteConnection conn = new SQLiteConnection(GetConnectionString()))
             {
                 conn.Open();
-                string sql = String.Format("insert into highscores (name, score) values ('{0}', {1})", Environment.MachineName, _player.Score.ToString());
+                string sql =
+                    $"insert into highscores (name, score) values ('{Environment.MachineName}', {_player.Score.ToString()})";
                 SQLiteCommand command = new SQLiteCommand(sql, conn);
                 command.ExecuteNonQuery();
             }
@@ -482,14 +512,13 @@ namespace GameView
             }
         }
 
-        private void DisplayRecords(DataTable dt)
+        private void FormatRecords(DataTable dt)
         {
-            records.Text = string.Format("{0}: \r\n", Properties.Resources.Records);
+            records.Text = $"{FindResource("TopScore")}: \r\n";
             foreach (DataRow row in dt.Rows)
             {
-                records.Text += String.Format("{0} {1} \r\n", row["name"], row["score"]);
+                records.Text += $"{row["name"]} {row["score"]} \r\n";
             }
-            records.Visibility = Visibility.Visible;
         }
 
         private void DeleteRecords()
