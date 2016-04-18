@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controller="clr-namespace:Controller.Core;assembly=Controller"
         xmlns:local="clr-namespace:GameView"
         mc:Ignorable="d"
-        Title="MainWindow" Name="wind" Height="700" Width="658" KeyDown="fieldCan_KeyDown" KeyUp="fieldCan_KeyUp">
+        Title="MainWindow" Name="Wind" Height="700" Width="658" KeyDown="fieldCan_KeyDown" KeyUp="fieldCan_KeyUp">
+    <Window.DataContext>
+        <controller:CoreController/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -56,7 +60,8 @@
         </Grid.ColumnDefinitions>
         <Button Name="newGameBtn" Grid.Row="0" Content="{DynamicResource NewGame}" Click="newGameBtn_Click"/>
         <Button Name="topScoreBtn" Grid.Row="0" Content="{DynamicResource TopScore}"  Grid.Column="1"  Click="TopScoreBtn_OnClick"/>
-        <Button Name="reserScoreBtn" Grid.Row="0" Content="{DynamicResource ClearScore}" Grid.Column="2"  Click="ResetScoreBtn_OnClick"/>
+        <Button Name="reserScoreBtn" Grid.Row="0" Content="{DynamicResource ClearScore}" Grid.Column="2"  
+                Command="{Binding ResetScore}" Click="ResetScoreBtn_OnClick"/>
         <ComboBox Name="blinkyAs" Grid.Row="0" Grid.Column="3" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged"  Foreground="Red"/>
         <ComboBox Name="pinkyAs" Grid.Row="0" Grid.Column="4" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Fuchsia"/>
         <ComboBox Name="inkyAs" Grid.Row="0" Grid.Column="5" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Blue"/>

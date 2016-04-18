@@ -14,7 +14,7 @@ namespace Controller.Interfaces
         void ReleaseAction();
         void SetBehavior(string name, string path);
         void StopGameProcess();
-        void ResetScore();
+        ICommand ResetScore { get; }
         DataTable SelectRecord();
         List<string> GetLibraries { get; }
         IPlayer GetPlayer { get; }

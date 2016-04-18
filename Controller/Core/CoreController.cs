@@ -211,14 +211,23 @@ namespace Controller.Core
             _stepParallelTicker.Stop();
         }
 
-        public void ResetScore()
-        {
-            _records.DeleteRecords();
-        }
-
         public DataTable SelectRecord()
         {
             return _records.SelectRecords();
+        }
+
+
+        private ICommand _resetScore;
+        public ICommand ResetScore
+        {
+            get
+            {
+                return _resetScore
+                       ?? (_resetScore = new ActionCommand(() =>
+                       {
+                          _records.DeleteRecords();
+                       }));
+            }
         }
     }
 }
