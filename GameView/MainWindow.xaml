@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameView"
         mc:Ignorable="d"
-        Title="MainWindow" Name="wind" Height="700" Width="658" Keyboard.KeyDown="fieldCan_KeyDown"  Keyboard.KeyUp="fieldCan_KeyUp">
+        Title="MainWindow" Name="wind" Height="700" Width="658" KeyDown="fieldCan_KeyDown" KeyUp="fieldCan_KeyUp">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

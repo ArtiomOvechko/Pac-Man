@@ -92,10 +92,9 @@ namespace PackMan.Core
 
         }
 
-        public Level(IField field, GhostBehavior blinky, GhostBehavior pinky, GhostBehavior inky, GhostBehavior clyde,  IPlayer player)
+        public Level(IField field, GhostBehavior blinky, GhostBehavior pinky, GhostBehavior inky, GhostBehavior clyde)
         {
             FleeTime = 0;
-            _player = player;
             GameField = field;
             Pacman = new Pac(GameField, this);
             _blinky = new GhostInstance(blinky, this);

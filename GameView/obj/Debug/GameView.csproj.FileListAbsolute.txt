@@ -27,3 +27,7 @@ C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\S
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\obj\Debug\App.baml
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\obj\Debug\Resources\lang.baml
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\obj\Debug\Resources\lang.ru-RU.baml
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\Controller.dll
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\RecordsDb.dll
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\Controller.pdb
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\RecordsDb.pdb

@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueGhostBehavior", "BlueGh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrangeGhostBehavior", "OrangeGhostBehavior\OrangeGhostBehavior.csproj", "{91E6C7D9-A4C2-4761-A068-C603274A8782}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controller", "Controller\Controller.csproj", "{030BF887-641D-444C-957D-CEF065616F7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordsDb", "RecordsDb\RecordsDb.csproj", "{9B9F2C92-C20D-41A6-8793-C78086F61A00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{91E6C7D9-A4C2-4761-A068-C603274A8782}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91E6C7D9-A4C2-4761-A068-C603274A8782}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91E6C7D9-A4C2-4761-A068-C603274A8782}.Release|Any CPU.Build.0 = Release|Any CPU
+		{030BF887-641D-444C-957D-CEF065616F7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{030BF887-641D-444C-957D-CEF065616F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{030BF887-641D-444C-957D-CEF065616F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{030BF887-641D-444C-957D-CEF065616F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B9F2C92-C20D-41A6-8793-C78086F61A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B9F2C92-C20D-41A6-8793-C78086F61A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B9F2C92-C20D-41A6-8793-C78086F61A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B9F2C92-C20D-41A6-8793-C78086F61A00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
