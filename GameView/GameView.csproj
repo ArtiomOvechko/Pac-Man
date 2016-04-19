@@ -94,8 +94,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Extensions\Extension.cs" />
-    <Compile Include="Interfaces\IPictureInitializer.cs" />
+    <Compile Include="Extension\Extension.cs" />
+    <Compile Include="Interface\IPictureInitializer.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -110,7 +110,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\PictureInitializer.cs" />
+    <Compile Include="Entity\PictureInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

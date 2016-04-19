@@ -1,23 +1,33 @@
-﻿using PackMan.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using PackMan.Entities;
 using PackMan.Interfaces;
 
 namespace PackMan.Core
 {
     public class Filler : IFiller
     {
-        private SingleRandom _randomizer;
+        private readonly SingleRandom _randomizer;
+
         private int _dots;
+
         private int _empty;
-        private const int _initialValue = 0;
-        private const int _targetEmptyValue = 200;
-        private const int _randomLowerBorder = 1;
-        private const int _randomUpperBorder = 31;
-        private const int _randomUpperSecondBorder = 10;
-        private const int _certainNumberOfRandomRange = 2;
-        private const int _targetDotValue = 100;
+
+        private const int InitialValue = 0;
+
+        private const int TargetEmptyValue = 200;
+
+        private const int RandomLowerBorder = 1;
+
+        private const int RandomUpperBorder = 31;
+
+        private const int RandomUpperSecondBorder = 10;
+
+        private const int CertainNumberOfRandomRange = 2;
+
+        private const int TargetDotValue = 100;
 
         private enum Quantity
         {
@@ -30,8 +40,8 @@ namespace PackMan.Core
         public Filler()
         {
             _randomizer = SingleRandom.Instance;
-            _dots = _initialValue;
-            _empty = _initialValue;
+            _dots = InitialValue;
+            _empty = InitialValue;
         }
 
         public void Fill(IField field)
@@ -127,8 +137,8 @@ namespace PackMan.Core
         private void MakeRandomRoute(IField field, int x, int y)
         {
 
-            int i = _initialValue;
-            int j = _initialValue;
+            int i = InitialValue;
+            int j = InitialValue;
             List<int> sides = new List<int>();
             if ((field.GameField[y - 1, x] as Empty) != null && !ManyNeighbours(field, y - 1, x))
             {
@@ -152,7 +162,7 @@ namespace PackMan.Core
                 return;
             }
 
-            int rand = _randomizer._randomInstance.Next(sides.Count());
+            int rand = _randomizer.RandomInstance.Next(sides.Count());
             switch (sides[rand])
             {
                 case (int)Quantity.One:
@@ -173,9 +183,9 @@ namespace PackMan.Core
                     break;
             }
             field.GameField[i, j] = new Dot();
-            if (++_empty == _targetEmptyValue)
+            if (++_empty == TargetEmptyValue)
                 return;
-            if (_randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder) == _certainNumberOfRandomRange)
+            if (_randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder) == CertainNumberOfRandomRange)
             {
                 SearchNewRoute(field);
                 return;
@@ -185,8 +195,8 @@ namespace PackMan.Core
 
         private void MakeRandomEmptyRoute(IField field, int x, int y)
         {
-            int i = _initialValue;
-            int j = _initialValue;
+            int i = InitialValue;
+            int j = InitialValue;
             List<int> sides = new List<int>();
             if ((field.GameField[y - 1, x] as DynamicWall) != null && !ManyNeighbours(field, y - 1, x) && !ManyEmpty(field, y - 1, x))
             {
@@ -210,7 +220,7 @@ namespace PackMan.Core
                 return;
             }
 
-            int rand = _randomizer._randomInstance.Next(sides.Count());
+            int rand = _randomizer.RandomInstance.Next(sides.Count());
             switch (sides[rand])
             {
                 case (int)Quantity.One:
@@ -231,9 +241,9 @@ namespace PackMan.Core
                     break;
             }
             field.GameField[i, j] = new Empty();
-            if (++_dots == _targetDotValue)
+            if (++_dots == TargetDotValue)
                 return;
-            if (_randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperSecondBorder) == _certainNumberOfRandomRange)
+            if (_randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperSecondBorder) == CertainNumberOfRandomRange)
             {
                 SearchNewEmptyRoute(field);
                 return;
@@ -243,38 +253,38 @@ namespace PackMan.Core
 
         private void SearchNewRoute(IField field)
         {
-            int x = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
-            int y = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
+            int x = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
+            int y = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
             while ((field.GameField[y, x] as Dot) == null)
             {
-                x = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
-                y = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
+                x = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
+                y = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
             }
             MakeRandomRoute(field, x, y);
         }
 
         private void SearchNewEmptyRoute(IField field)
         {
-            int x = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
-            int y = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
+            int x = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
+            int y = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
             while ((field.GameField[y, x] as Dot) == null && (field.GameField[y, x] as Empty) == null)
             {
-                x = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
-                y = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
+                x = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
+                y = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
             }
             MakeRandomEmptyRoute(field, x, y);
         }
 
         private void AddCherries(IField field)
         {
-            int x = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
-            int y = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
+            int x = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
+            int y = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
             for (int i = 0; i < 4; i++)
             {
                 while ((field.GameField[y, x] as Empty) == null)
                 {
-                    x = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
-                    y = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
+                    x = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
+                    y = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
                 }
                 field.GameField[y, x] = new Cherry();
             }
@@ -282,14 +292,14 @@ namespace PackMan.Core
 
         private void AddBonuses(IField field)
         {
-            int x = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
-            int y = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
+            int x = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
+            int y = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
             for (int i = 0; i < 4; i++)
             {
                 while ((field.GameField[y, x] as Empty) == null)
                 {
-                    x = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
-                    y = _randomizer._randomInstance.Next(_randomLowerBorder, _randomUpperBorder);
+                    x = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
+                    y = _randomizer.RandomInstance.Next(RandomLowerBorder, RandomUpperBorder);
                 }
                 field.GameField[y, x] = new Bonus();
             }
@@ -318,7 +328,7 @@ namespace PackMan.Core
 
         private bool ManyEmpty(IField field, int y, int x)
         {
-            if (y == field.Height - 1 || y == _initialValue || x == field.Width - 1 || x == _initialValue)
+            if (y == field.Height - 1 || y == InitialValue || x == field.Width - 1 || x == InitialValue)
             {
                 return false;
             }

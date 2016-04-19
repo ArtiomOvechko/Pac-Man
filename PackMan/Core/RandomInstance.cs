@@ -5,13 +5,14 @@ namespace PackMan.Core
     public sealed class SingleRandom
     {
         private static volatile SingleRandom _instance;
-        private static object locker = new object(); 
 
-        public readonly Random _randomInstance;
+        private static object _locker = new object(); 
+
+        public readonly Random RandomInstance;
 
         private SingleRandom()
         {
-            _randomInstance = new Random();
+            RandomInstance = new Random();
         }
 
         public static SingleRandom Instance
@@ -20,7 +21,7 @@ namespace PackMan.Core
             {
                 if (_instance == null)
                 {
-                    lock (locker)
+                    lock (_locker)
                     {
                         if(_instance==null)
                             _instance = new SingleRandom();

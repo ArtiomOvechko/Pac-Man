@@ -1,19 +1,25 @@
-﻿using PackMan.Interfaces;
+﻿using Ghost;
+using PackMan.Interfaces;
 using PackMan.Entities;
-using Ghost;
-using System;
 
 namespace PackMan.Core
 {
     public class Level: ILevel
     {
         private IField _gameField;
+
         private IPac _pacman;
-        private IGhost _blinky;
-        private IGhost _pinky;
-        private IGhost _inky;
-        private IGhost _clyde;
+
+        private readonly IGhost _blinky;
+
+        private readonly IGhost _pinky;
+
+        private readonly IGhost _inky;
+
+        private readonly IGhost _clyde;
+
         private IPlayer _player;
+
         private int _fleeTime;
 
         public IField GameField
@@ -92,7 +98,7 @@ namespace PackMan.Core
 
         }
 
-        public Level(IField field, GhostBehavior blinky, GhostBehavior pinky, GhostBehavior inky, GhostBehavior clyde)
+        public Level(IField field, BaseGhostBehavior blinky, BaseGhostBehavior pinky, BaseGhostBehavior inky, BaseGhostBehavior clyde)
         {
             FleeTime = 0;
             GameField = field;

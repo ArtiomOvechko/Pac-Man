@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controller="clr-namespace:Controller.Core;assembly=Controller"
-        xmlns:local="clr-namespace:GameView"
         mc:Ignorable="d"
         Title="MainWindow" Name="Wind" Height="700" Width="658" KeyDown="fieldCan_KeyDown" KeyUp="fieldCan_KeyUp">
     <Window.DataContext>
@@ -58,18 +57,18 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Name="newGameBtn" Grid.Row="0" Content="{DynamicResource NewGame}" Click="newGameBtn_Click"/>
-        <Button Name="topScoreBtn" Grid.Row="0" Content="{DynamicResource TopScore}"  Grid.Column="1"  Click="TopScoreBtn_OnClick"/>
-        <Button Name="reserScoreBtn" Grid.Row="0" Content="{DynamicResource ClearScore}" Grid.Column="2"  
+        <Button Name="NewGameBtn" Grid.Row="0" Content="{DynamicResource NewGame}" Click="newGameBtn_Click"/>
+        <Button Name="TopScoreBtn" Grid.Row="0" Content="{DynamicResource TopScore}"  Grid.Column="1"  Click="TopScoreBtn_OnClick"/>
+        <Button Name="ReserScoreBtn" Grid.Row="0" Content="{DynamicResource ClearScore}" Grid.Column="2"  
                 Command="{Binding ResetScore}" Click="ResetScoreBtn_OnClick"/>
-        <ComboBox Name="blinkyAs" Grid.Row="0" Grid.Column="3" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged"  Foreground="Red"/>
-        <ComboBox Name="pinkyAs" Grid.Row="0" Grid.Column="4" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Fuchsia"/>
-        <ComboBox Name="inkyAs" Grid.Row="0" Grid.Column="5" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Blue"/>
-        <ComboBox Name="clydeAs" Grid.Row="0" Grid.Column="6" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Orange"/>
-        <ComboBox Name="languageBox" Grid.Row="0" Grid.Column ="7" Loaded="LanguageBox_OnLoaded" SelectionChanged="LanguageBox_SelectionChanged"/>
-        <Canvas Name="fieldCan" Grid.Row="1" Grid.RowSpan="34" Grid.Column="0" Grid.ColumnSpan="8" Background="Black">
+        <ComboBox x:Name="BlinkyAs" Grid.Row="0" Grid.Column="3" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged"  Foreground="Red"/>
+        <ComboBox Name="PinkyAs" Grid.Row="0" Grid.Column="4" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Fuchsia"/>
+        <ComboBox Name="InkyAs" Grid.Row="0" Grid.Column="5" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Blue"/>
+        <ComboBox Name="ClydeAs" Grid.Row="0" Grid.Column="6" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Orange"/>
+        <ComboBox Name="LanguageBox" Grid.Row="0" Grid.Column ="7" Loaded="LanguageBox_OnLoaded" SelectionChanged="LanguageBox_SelectionChanged"/>
+        <Canvas Name="FieldCan" Grid.Row="1" Grid.RowSpan="34" Grid.Column="0" Grid.ColumnSpan="8" Background="Black">
         </Canvas>
-        <TextBlock Name="records" Grid.Row="1" Grid.RowSpan="34" Grid.Column="0" Grid.ColumnSpan="8" Background="White" Foreground="Black">
+        <TextBlock Name="Records" Grid.Row="1" Grid.RowSpan="34" Grid.Column="0" Grid.ColumnSpan="8" Background="White" Foreground="Black">
         </TextBlock>
     </Grid>
 </Window>

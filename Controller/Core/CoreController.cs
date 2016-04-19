@@ -1,44 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 using System.Windows.Threading;
+
 using Ghost;
 using PackMan.Core;
 using PackMan.Interfaces;
 using RecordsDb.Core;
-using RecordsDb.Interfaces;
-using System.Diagnostics;
-using Controller.Interfaces;
+using RecordsDb.Interface;
+
+using Controller.Interface;
 
 namespace Controller.Core
 {
     public class CoreController: ICoreController
     {
-        private readonly DispatcherTimer _stepParallelTicker = new DispatcherTimer();
-        private readonly DispatcherTimer _stepTicker = new DispatcherTimer();
+        private readonly DispatcherTimer _parallelTicker = new DispatcherTimer();
+
+        private readonly DispatcherTimer _ticker = new DispatcherTimer();
+
         private IPlayer _player;
-        private List<GhostBehavior> _behaviors;
+
+        private List<BaseGhostBehavior> _behaviors;
+
         private readonly string _pathPlug;
-        private const int _cellSize = 20;
-        private const int _levelScore = 1000;
-        private const int _criticalValue = 0;
-        private const int _fieldSize = 32;
-        private const int _pacManFrameDuration = 750000;
-        private const int _ghostFrameDuration = 2500000;
-        private const int _northDirection = 1;
-        private const int _eastDirection = 2;
-        private const int _southDirection = 3;
-        private const int _westDirection = 4;
-        private enum ghostType { blinkyAs, pinkyAs, inkyAs, clydeAs }
+
+        private const int LevelScore = 1000;
+
+        private const int CriticalValue = 0;
+
+        private const int PacManFrameDuration = 750000;
+
+        private const int GhostFrameDuration = 2500000;
+
+        private enum  Direction
+        {
+            North = 1,
+            East = 2,
+            South = 3,
+            West = 4
+        }
+
+        private enum GhostType { BlinkyAs, PinkyAs, InkyAs, ClydeAs }
+
         private IRecordsDatabase _records;
+
+        private ICommand _resetScore;
 
         public CoreController()
         {
-            _pathPlug = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\Plugins";
+            _pathPlug = Path.GetDirectoryName(Process.
+                GetCurrentProcess().MainModule.FileName) + @"\Plugins";
             _records = new RecordsDatabase();
             InitBehaviors();
             AddEventHandlers();
@@ -51,27 +68,30 @@ namespace Controller.Core
 
         private void AddEventHandlers()
         {
-            _stepTicker.Tick += StepTicker_Tick;
-            _stepParallelTicker.Tick += StepParallelTicker_Tick;
+            _ticker.Tick += StepTicker_Tick;
+            _parallelTicker.Tick += StepParallelTicker_Tick;
         }
 
         private void InitBehaviors()
         {
-            _behaviors = new List<GhostBehavior>(new GhostBehavior[4]);
+            _behaviors = 
+                new List<BaseGhostBehavior>(new BaseGhostBehavior[4]);
         }
 
         private void InitFirstLevel()
         {
             var f = new Field(new Filler());
-            _player = new Player(new Level(f, _behaviors[0], _behaviors[1], _behaviors[2], _behaviors[3]));
+            _player = new Player(new Level
+                (f, _behaviors[0], _behaviors[1], _behaviors[2], _behaviors[3]));
             _player.Level.Player = _player;
         }
 
         private void InitLevel()
         {
             var f = new Field(new Filler());
-            _player.Level = new Level(f, _behaviors[0], _behaviors[1], _behaviors[2], _behaviors[3]);
-            _player.Level.Player = _player;
+            _player.Level = new Level
+                (f, _behaviors[0], _behaviors[1], _behaviors[2], _behaviors[3])
+                { Player = _player};
             _player.LevelNumber++;
         }
 
@@ -84,11 +104,11 @@ namespace Controller.Core
             if (_player.Level.GameField.Completed())
             {
                 NextLevel();
-                _player.Score += _levelScore;
-                _player.ScoreTrack += _levelScore;
+                _player.Score += LevelScore;
+                _player.ScoreTrack += LevelScore;
             }
             _player.CheckCondition();
-            if (_player.Lives == _criticalValue)
+            if (_player.Lives == CriticalValue)
             {
                 _records.AddRecord(GetPlayer);
                 NewGame();
@@ -101,7 +121,7 @@ namespace Controller.Core
             _player.Level.Pinky.Move();
             _player.Level.Inky.Move();
             _player.Level.Clyde.Move();
-            if (_player.Level.FleeTime > _criticalValue)
+            if (_player.Level.FleeTime > CriticalValue)
                 _player.Level.FleeTime--;
             else
                 _player.Level.SetNormal();
@@ -127,25 +147,29 @@ namespace Controller.Core
                 if (e.Key == Key.Up)
                 {
                     _player.Level.Pacman.Moving = true;
-                    _player.Level.Pacman.Direction = _northDirection;
+                    _player.Level.Pacman.Direction = 
+                        (int)Direction.North;
                     e.Handled = true;
                 }
                 if (e.Key == Key.Down)
                 {
                     _player.Level.Pacman.Moving = true;
-                    _player.Level.Pacman.Direction = _southDirection;
+                    _player.Level.Pacman.Direction = 
+                        (int)Direction.South;
                     e.Handled = true;
                 }
                 if (e.Key == Key.Right)
                 {
                     _player.Level.Pacman.Moving = true;
-                    _player.Level.Pacman.Direction = _eastDirection;
+                    _player.Level.Pacman.Direction = 
+                        (int)Direction.East;
                     e.Handled = true;
                 }
                 if (e.Key == Key.Left)
                 {
                     _player.Level.Pacman.Moving = true;
-                    _player.Level.Pacman.Direction = _westDirection;
+                    _player.Level.Pacman.Direction = 
+                        (int)Direction.West;
                     e.Handled = true;
                 }
             }
@@ -169,26 +193,32 @@ namespace Controller.Core
 
         public void SetBehavior(string ghostName, string path)
         {
-            var t = typeof(GhostBehavior);
+            var t = typeof(BaseGhostBehavior);
             if (path != null)
             {
-                var type = Assembly.LoadFrom(path).GetTypes().FirstOrDefault(a => t.IsAssignableFrom(a) && !a.IsAbstract);
+                var type = Assembly.LoadFrom(path).GetTypes().
+                    FirstOrDefault(a => t.IsAssignableFrom(a) && !a.IsAbstract);
                 if (type != null)
                 {
-                    ghostType ghostSelected = (ghostType) Enum.Parse(typeof (ghostType), ghostName);
+                    GhostType ghostSelected = (GhostType)Enum.
+                        Parse(typeof (GhostType), ghostName);
                     switch (ghostSelected)
                     {
-                        case ghostType.blinkyAs:
-                            _behaviors[0] = (GhostBehavior) Activator.CreateInstance(type);
+                        case GhostType.BlinkyAs:
+                            _behaviors[0] = (BaseGhostBehavior) 
+                                Activator.CreateInstance(type);
                             break;
-                        case ghostType.pinkyAs:
-                            _behaviors[1] = (GhostBehavior) Activator.CreateInstance(type);
+                        case GhostType.PinkyAs:
+                            _behaviors[1] = (BaseGhostBehavior) 
+                                Activator.CreateInstance(type);
                             break;
-                        case ghostType.inkyAs:
-                            _behaviors[2] = (GhostBehavior) Activator.CreateInstance(type);
+                        case GhostType.InkyAs:
+                            _behaviors[2] = (BaseGhostBehavior) 
+                                Activator.CreateInstance(type);
                             break;
-                        case ghostType.clydeAs:
-                            _behaviors[3] = (GhostBehavior) Activator.CreateInstance(type);
+                        case GhostType.ClydeAs:
+                            _behaviors[3] = (BaseGhostBehavior) 
+                                Activator.CreateInstance(type);
                             break;
                     }
                     return;
@@ -199,16 +229,16 @@ namespace Controller.Core
 
         private void StartGameProcess()
         {
-            _stepTicker.Interval = new TimeSpan(_pacManFrameDuration);
-            _stepParallelTicker.Interval = new TimeSpan(_ghostFrameDuration);
-            _stepTicker.Start();
-            _stepParallelTicker.Start();
+            _ticker.Interval = new TimeSpan(PacManFrameDuration);
+            _parallelTicker.Interval = new TimeSpan(GhostFrameDuration);
+            _ticker.Start();
+            _parallelTicker.Start();
         }
 
         public void StopGameProcess()
         {
-            _stepTicker.Stop();
-            _stepParallelTicker.Stop();
+            _ticker.Stop();
+            _parallelTicker.Stop();
         }
 
         public DataTable SelectRecord()
@@ -216,8 +246,6 @@ namespace Controller.Core
             return _records.SelectRecords();
         }
 
-
-        private ICommand _resetScore;
         public ICommand ResetScore
         {
             get

@@ -30,7 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PackMan">
+    <Reference Include="PackMan, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\PackMan\bin\Debug\PackMan.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -43,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IGhost.cs" />
-    <Compile Include="GhostBehavior.cs" />
+    <Compile Include="Abstract\IGhost.cs" />
+    <Compile Include="Abstract\BaseGhostBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

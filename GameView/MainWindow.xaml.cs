@@ -1,44 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+using System.Data;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using GameView.Extensions;
-using Ghost;
-using PackMan.Core;
-using PackMan.Entities;
-using PackMan.Interfaces;
-using System.Data.SQLite;
-using System.Data;
-using System.Configuration;
-using System.Globalization;
+
 using Controller.Core;
-using Controller.Interfaces;
-using GameView.Entities;
-using GameView.Interfaces;
+using Controller.Interface;
+
+using GameView.Entity;
+using GameView.Extension;
+using GameView.Interface;
 
 namespace GameView
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow: Window
+    public partial class MainWindow
     {
         private readonly DispatcherTimer _refreshTicker = new DispatcherTimer();
-        private ICoreController _core;
-        private const int _comboDefaultIndex = 0;
-        private const string _windowTitle = "Pac-Man Game";
-        private IPictureInitializer _pictureInitializer;
+
+        private readonly ICoreController _core;
+
+        private const int ComboDefaultIndex = 0;
+
+        private const string WindowTitle = "Pac-Man Game";
+
+        private readonly IPictureInitializer _pictureInitializer;
 
 
         public MainWindow()
-        { 
+        {
             _core = new CoreController();
             _pictureInitializer = new PictureInitializer();
             InitializeComponent();
@@ -48,38 +42,40 @@ namespace GameView
             ResizeMode = ResizeMode.NoResize;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             MessageBox.Show(FindResource("GreetingMessage").ToString());
-            Title = _windowTitle;
+            Title = WindowTitle;
         }
 
         private void DisplayPlayerStatus()
         {
-            Title = $"{FindResource("Level")}: {_core.GetPlayer.LevelNumber} {FindResource("Score")}: {_core.GetPlayer.Score} {FindResource("Lives")}: {_core.GetPlayer.Lives}";
+            Title = $"{FindResource("Level")}: {_core.GetPlayer.LevelNumber}" +
+                    $" {FindResource("Score")}: {_core.GetPlayer.Score} " +
+                    $"{FindResource("Lives")}: {_core.GetPlayer.Lives}";
         }
 
         private void ChangeComboStatus(bool b)
         {
-            blinkyAs.IsEnabled = b;
-            pinkyAs.IsEnabled = b;
-            inkyAs.IsEnabled = b;
-            clydeAs.IsEnabled = b;
-            languageBox.IsEnabled = b;
-            Title = _windowTitle;
+            BlinkyAs.IsEnabled = b;
+            PinkyAs.IsEnabled = b;
+            InkyAs.IsEnabled = b;
+            ClydeAs.IsEnabled = b;
+            LanguageBox.IsEnabled = b;
+            Title = WindowTitle;
         }
 
         private void FormatRecords(DataTable dt)
         {
-            records.Text = $"{FindResource("TopScore")}: \r\n";
+            Records.Text = $"{FindResource("TopScore")}: \r\n";
             foreach (DataRow row in dt.Rows)
             {
-                records.Text += $"{row["name"]} {row["score"]} \r\n";
+                Records.Text += $"{row["name"]} {row["score"]} \r\n";
             }
         }
 
         private void newGameBtn_Click(object sender, RoutedEventArgs e)
         {
             _core.NewGame();
-            _pictureInitializer.PreLevelRenderedAction(_core, fieldCan);
-            records.Visibility = Visibility.Hidden;
+            _pictureInitializer.PreLevelRenderedAction(_core, FieldCan);
+            Records.Visibility = Visibility.Hidden;
             ChangeComboStatus(false);
             _refreshTicker.Interval = new TimeSpan(100000);
             _refreshTicker.Start();
@@ -87,8 +83,8 @@ namespace GameView
 
         private void refresherTicker_Tick(object sender, EventArgs e)
         {
-            _pictureInitializer.Redraw(_core, fieldCan);
-            fieldCan.Refresh();
+            _pictureInitializer.Redraw(_core, FieldCan);
+            FieldCan.Refresh();
             DisplayPlayerStatus();
         }
 
@@ -113,32 +109,35 @@ namespace GameView
             if (comboBox != null)
             {
                 comboBox.ItemsSource = _core.GetLibraries;
-                comboBox.SelectedIndex = _comboDefaultIndex;
+                comboBox.SelectedIndex = ComboDefaultIndex;
             }
         }
 
         private void ghostAs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var asm = sender as ComboBox;
-            _core.SetBehavior(asm.Name, asm.SelectedItem.ToString());
+            if (asm != null)
+            {
+                _core.SetBehavior(asm.Name, asm.SelectedItem.ToString());
+            }
         }
 
-        private void LanguageBox_OnLoaded(object sender, RoutedEventArgs e)
+    private void LanguageBox_OnLoaded(object sender, RoutedEventArgs e)
         {
             foreach (var lang in App.Languages)
             {
                 ComboBoxItem item = new ComboBoxItem();
                 item.Content = lang.DisplayName;
                 item.Tag = lang;
-                languageBox.Items.Add(lang);
+                LanguageBox.Items.Add(lang);
             }
-            var index = languageBox.Items.IndexOf(App.Language);
-            languageBox.SelectedIndex = index;
+            var index = LanguageBox.Items.IndexOf(App.Language);
+            LanguageBox.SelectedIndex = index;
         }
 
         private void LanguageBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CultureInfo item = languageBox.SelectedItem as CultureInfo; 
+            CultureInfo item = LanguageBox.SelectedItem as CultureInfo; 
             if (item != null)
             {
                 App.Language = item;
@@ -150,9 +149,9 @@ namespace GameView
             _refreshTicker.Stop();
             _core.StopGameProcess();
             FormatRecords(_core.SelectRecord());
-            records.Visibility = Visibility.Visible;
+            Records.Visibility = Visibility.Visible;
             ChangeComboStatus(true);
-            Title = _windowTitle;
+            Title = WindowTitle;
         }
 
         private void ResetScoreBtn_OnClick(object sender, RoutedEventArgs e)
@@ -162,9 +161,9 @@ namespace GameView
             //Must execute ViewModel ResetScore() method here
             //
             FormatRecords(_core.SelectRecord());
-            records.Visibility = Visibility.Visible;
+            Records.Visibility = Visibility.Visible;
             ChangeComboStatus(true);
-            Title = _windowTitle;
+            Title = WindowTitle;
         }
 
         private void AddEventHandlers()

@@ -1,2 +1,0 @@
-Choose an approprite behavior plugin for each ghost from the top-right corner lists (you can choose the same behavior for different ghosts)
-

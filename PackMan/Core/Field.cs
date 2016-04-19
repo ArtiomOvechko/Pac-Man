@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using PackMan.Entities;
 using PackMan.Interfaces;
 
@@ -7,22 +8,33 @@ namespace PackMan.Core
 {
     public class Field: IField
     {
-        private IObstacle[,] gameField { get; set; }
+        private IObstacle[,] _gameField;
 
         private const int height = 32;
+
         private const int width = 32;
-        private readonly IFiller filler;
+
+        private IEnumerable<IObstacle> GetAll()
+        {
+            for (int i = 0; i < Height; i++)
+            {
+                for (int j = 0; j < Width; j++)
+                {
+                    yield return GameField[i, j];
+                }
+            }
+        }
 
         public IObstacle[,] GameField
         {
             get
             {
-                return gameField;
+                return _gameField;
             }
 
             set
             {
-                gameField = value;
+                _gameField = value;
             }
         }
 
@@ -42,13 +54,10 @@ namespace PackMan.Core
             }
         }
 
-
-
         public Field(IFiller filler)
         {
-            this.filler = filler;
             GameField = new IObstacle[Height, Width];
-            this.filler.Fill(this);
+            filler.Fill(this);
         }
 
         public IEnumerable<Tuple<IObstacle, int, int>> GetAllCells()
@@ -61,17 +70,6 @@ namespace PackMan.Core
                 }
             }
         }
-
-        private IEnumerable<IObstacle> GetAll()
-        {
-            for (int i = 0; i < Height; i++)
-            {
-                for (int j = 0; j < Width; j++)
-                {
-                    yield return GameField[i,j];
-                }
-            }
-        } 
 
         public bool Completed()
         {

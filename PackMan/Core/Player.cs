@@ -1,18 +1,23 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using PackMan.Interfaces;
+﻿using PackMan.Interfaces;
 
 namespace PackMan.Core
 {
     public class Player : IPlayer
     {
         private  int _levelNumber;
+
         private  int _score;
+
         private int _scoreTrack;
+
         private  int _lives;
+
         private ILevel _level;
-        private const int _fleeTimeExpired = 0;
-        private const int _scoreAmountOfNewLive = 10000;
+
+        private const int FleeTimeExpired = 0;
+
+        private const int ScoreAmountOfNewLive = 10000;
+
         public ILevel Level
         {
             get { return _level; }
@@ -61,7 +66,7 @@ namespace PackMan.Core
         {
             if (Level.Blinky.X == Level.Pacman.X && Level.Blinky.Y == Level.Pacman.Y)
             {
-                if (Level.FleeTime > _fleeTimeExpired)
+                if (Level.FleeTime > FleeTimeExpired)
                 {
                     Level.Blinky.PutOn(Level.GameField.Width / 2 - 1, Level.GameField.Height / 2 - 3);
                     return;
@@ -71,7 +76,7 @@ namespace PackMan.Core
             }
             if (Level.Pinky.X == Level.Pacman.X && Level.Pinky.Y == Level.Pacman.Y)
             {
-                if (Level.FleeTime > _fleeTimeExpired)
+                if (Level.FleeTime > FleeTimeExpired)
                 {
                     Level.Pinky.PutOn(Level.GameField.Width / 2 - 2, Level.GameField.Height / 2 - 1);
                     return;
@@ -81,7 +86,7 @@ namespace PackMan.Core
             }
             if (Level.Inky.X == Level.Pacman.X && Level.Inky.Y == Level.Pacman.Y)
             {
-                if (Level.FleeTime > _fleeTimeExpired)
+                if (Level.FleeTime > FleeTimeExpired)
                 {
                     Level.Inky.PutOn(Level.GameField.Width / 2 - 1, Level.GameField.Height / 2 - 1);
                     return;
@@ -91,7 +96,7 @@ namespace PackMan.Core
             }
             if (Level.Clyde.X == Level.Pacman.X && Level.Clyde.Y == Level.Pacman.Y)
             {
-                if (Level.FleeTime > _fleeTimeExpired)
+                if (Level.FleeTime > FleeTimeExpired)
                 {
                     Level.Clyde.PutOn(Level.GameField.Width / 2, Level.GameField.Height / 2 - 1);
                     return;
@@ -99,9 +104,9 @@ namespace PackMan.Core
                 Level.PutOnDefault();
                 Lives--;
             }
-            if (ScoreTrack > _scoreAmountOfNewLive)
+            if (ScoreTrack > ScoreAmountOfNewLive)
             {
-                ScoreTrack -= _scoreAmountOfNewLive;
+                ScoreTrack -= ScoreAmountOfNewLive;
                 Lives++;
             }
         }

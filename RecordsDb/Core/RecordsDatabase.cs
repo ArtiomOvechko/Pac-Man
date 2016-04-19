@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RecordsDb.Interfaces;
 using System.Data.SQLite;
 using System.Data;
 using System.Configuration;
+
 using PackMan.Interfaces;
+
+using RecordsDb.Interface;
 
 namespace RecordsDb.Core
 {
@@ -15,7 +13,8 @@ namespace RecordsDb.Core
     {
         private string GetConnectionString()
         {
-            return ConfigurationManager.ConnectionStrings["RecordsDbString"].ConnectionString;
+            return ConfigurationManager.
+                ConnectionStrings["RecordsDbString"].ConnectionString;
         }
 
         public void AddRecord(IPlayer player)
@@ -24,7 +23,8 @@ namespace RecordsDb.Core
             {
                 conn.Open();
                 string sql =
-                    $"insert into highscores (name, score) values ('{Environment.MachineName}', {player.Score.ToString()})";
+                    $"insert into highscores (name, score) values " +
+                    $"('{Environment.MachineName}', {player.Score.ToString()})";
                 SQLiteCommand command = new SQLiteCommand(sql, conn);
                 command.ExecuteNonQuery();
             }

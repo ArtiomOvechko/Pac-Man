@@ -1,4 +1,5 @@
 ﻿using Ghost;
+
 using PackMan.Interfaces;
 
 namespace PackMan.Entities
@@ -6,15 +7,21 @@ namespace PackMan.Entities
     public class GhostInstance : IGhost
     {
         private int _x;
+
         private int _y;
+
         private int _oldx;
+
         private int _oldy;
+
         private string _condition;
+
         private readonly ILevel _level;
-        private readonly GhostBehavior _behavior;
+
+        private readonly BaseGhostBehavior _behavior;
         
 
-        public GhostInstance(GhostBehavior behaviour, ILevel level)
+        public GhostInstance(BaseGhostBehavior behaviour, ILevel level)
         {
             _condition = "Normal";
             _level = level;

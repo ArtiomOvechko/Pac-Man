@@ -67,7 +67,7 @@
   <ItemGroup>
     <Compile Include="Core\ActionCommand.cs" />
     <Compile Include="Core\CoreController.cs" />
-    <Compile Include="Interfaces\ICoreController.cs" />
+    <Compile Include="Interface\ICoreController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

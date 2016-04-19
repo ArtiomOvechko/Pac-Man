@@ -1,1 +1,0 @@
-No plugins available! Please put your plug-in in Plugins subfolder and restart the game.

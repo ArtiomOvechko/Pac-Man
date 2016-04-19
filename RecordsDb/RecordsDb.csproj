@@ -65,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\RecordsDatabase.cs" />
-    <Compile Include="Interfaces\IRecordsDatabase.cs" />
+    <Compile Include="Interface\IRecordsDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

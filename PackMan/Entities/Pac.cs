@@ -1,20 +1,27 @@
-﻿using System;
-using System.Xml.Schema;
-using PackMan.Interfaces;
+﻿using PackMan.Interfaces;
 
 namespace PackMan.Entities
 {
     public class Pac: IPac
     {
         private int _x;
+
         private int _y;
+
         private int _direction;
+
         private readonly IField _field;
+
         private bool _moving;
-        private ILevel _level;
-        private const int _initialValue = 0;
-        private const int _smallScoreBonus = 100;
-        private const int _normalScoreBonus = 500;
+
+        private readonly ILevel _level;
+
+        private const int InitialValue = 0;
+
+        private const int SmallScoreBonus = 100;
+
+        private const int NormalScoreBonus = 500;
+
         private IObstacle[,] GameField
         {
             get
@@ -123,7 +130,7 @@ namespace PackMan.Entities
 
         private void MoveLeft()
         {
-            if(_x!=_initialValue || _y!=Level.GameField.Height/2-1)
+            if(_x!=InitialValue || _y!=Level.GameField.Height/2-1)
             { 
                 if ((GameField[_y, _x - 1] is Wall) == false)
                 {
@@ -163,14 +170,14 @@ namespace PackMan.Entities
             }
             if ((GameField[a,b] as Cherry) != null)
             {
-                int amountOfScore = _normalScoreBonus;
+                int amountOfScore = NormalScoreBonus;
                 GameField[a, b] = new Empty();
                 Level.Player.Score+= amountOfScore;
                 Level.Player.ScoreTrack+= amountOfScore;
             }
             if ((GameField[a, b] as Bonus) != null)
             {
-                int amountOfScore = _smallScoreBonus;
+                int amountOfScore = SmallScoreBonus;
                 GameField[a, b] = new Empty();
                 Level.Player.Score += amountOfScore;
                 Level.Player.ScoreTrack += amountOfScore;
