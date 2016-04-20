@@ -20,8 +20,10 @@ namespace Controller.Core
 {
     public class CoreController: ICoreController
     {
+        // Ghost model state updater
         private readonly DispatcherTimer _parallelTicker = new DispatcherTimer();
 
+        // General model state updater
         private readonly DispatcherTimer _ticker = new DispatcherTimer();
 
         private IPlayer _player;
@@ -34,8 +36,10 @@ namespace Controller.Core
 
         private const int CriticalValue = 0;
 
+        // Higher value reduse game speed
         private const int PacManFrameDuration = 750000;
-
+        
+        // Higher value reduse game speed
         private const int GhostFrameDuration = 2500000;
 
         private enum  Direction
@@ -46,7 +50,8 @@ namespace Controller.Core
             West = 4
         }
 
-        private enum GhostType { BlinkyAs, PinkyAs, InkyAs, ClydeAs }
+        // Use it to specify which ghost was selected when applying plugin
+        private enum GhostType { BlinkyAs, PinkyAs, InkyAs, ClydeAs } 
 
         private IRecordsDatabase _records;
 
@@ -54,10 +59,12 @@ namespace Controller.Core
 
         public CoreController()
         {
+            // Getting relative path to plugins folder
             _pathPlug = Path.GetDirectoryName(Process.
                 GetCurrentProcess().MainModule.FileName) + @"\Plugins";
+            // Initializing top score database instance
             _records = new RecordsDatabase();
-            InitBehaviors();
+            _behaviors = new List<BaseGhostBehavior>(new BaseGhostBehavior[4]);
             AddEventHandlers();
         }
 
@@ -72,12 +79,9 @@ namespace Controller.Core
             _parallelTicker.Tick += StepParallelTicker_Tick;
         }
 
-        private void InitBehaviors()
-        {
-            _behaviors = 
-                new List<BaseGhostBehavior>(new BaseGhostBehavior[4]);
-        }
-
+        /// <summary>
+        /// Creates new game field and player
+        /// </summary>
         private void InitFirstLevel()
         {
             var f = new Field(new Filler());
@@ -86,8 +90,11 @@ namespace Controller.Core
             _player.Level.Player = _player;
         }
 
+        /// <summary>
+        /// Creates new level for existing player
+        /// </summary>
         private void InitLevel()
-        {
+        {           
             var f = new Field(new Filler());
             _player.Level = new Level
                 (f, _behaviors[0], _behaviors[1], _behaviors[2], _behaviors[3])
@@ -95,19 +102,23 @@ namespace Controller.Core
             _player.LevelNumber++;
         }
 
-        //Core process of gameplay
-        //
-        //
+        // Core process of gameplay
         private void StepTicker_Tick(object sender, EventArgs e)
         {
             _player.Level.Pacman.Move();
+
+            // Check whether player has completed the level
             if (_player.Level.GameField.Completed())
             {
                 NextLevel();
                 _player.Score += LevelScore;
                 _player.ScoreTrack += LevelScore;
             }
+
+            //Check whether player collided ghosts and act
             _player.CheckCondition();
+            
+            //Check whether player has died
             if (_player.Lives == CriticalValue)
             {
                 _records.AddRecord(GetPlayer);
@@ -117,6 +128,7 @@ namespace Controller.Core
 
         private void StepParallelTicker_Tick(object sender, EventArgs e)
         {
+            //Move all ghosts
             _player.Level.Blinky.Move();
             _player.Level.Pinky.Move();
             _player.Level.Inky.Move();
@@ -127,6 +139,9 @@ namespace Controller.Core
                 _player.Level.SetNormal();
         }
 
+        /// <summary>
+        /// Go to the nest level
+        /// </summary>
         public void NextLevel()
         {
             StopGameProcess();
@@ -134,12 +149,19 @@ namespace Controller.Core
             StartGameProcess();
         }
 
+        /// <summary>
+        /// Begin new game
+        /// </summary>
         public void NewGame()
         {
             InitFirstLevel();
             StartGameProcess();
         }
 
+        /// <summary>
+        /// Handle key input and choose direction of pacman to move
+        /// </summary>
+        /// <param name="e"></param>
         public void PressAction(KeyEventArgs e)
         {
             if (_player != null)

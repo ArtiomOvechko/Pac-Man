@@ -5,10 +5,19 @@ namespace BlueGhostBehavior.Behavior
 {
     public class BlueGhostBehave: BaseGhostBehavior
     {
+        /// <summary>
+        /// Points to move when ghost flee
+        /// </summary>
         private const int XTarget = 32;
 
-        private const int YTarget = 32;
+        private const int YTarget = 32; 
 
+        /// <summary>
+        /// <para></para>
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <returns></returns>
         private Tuple<int, int> GetPoints(int x1, int y1)
         {
             int x;
@@ -18,6 +27,9 @@ namespace BlueGhostBehavior.Behavior
             return new Tuple<int, int>(x,y);
         }
 
+        /// <summary>
+        /// <para>Search for the best way to go</para>
+        /// </summary>
         protected override void BestWay()
         {
             Tuple<int, int> min = FreeCells[0];
