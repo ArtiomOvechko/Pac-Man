@@ -4,11 +4,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controller="clr-namespace:Controller.Core;assembly=Controller"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="MainWindow" Name="Wind" Height="700" Width="658" KeyDown="fieldCan_KeyDown" KeyUp="fieldCan_KeyUp">
+        Title="MainWindow" Name="Wind" Height="700" Width="658"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    
     <Window.DataContext>
-        <controller:CoreController/>
+        <controller:ControllerSingleton></controller:ControllerSingleton>
     </Window.DataContext>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ShowScore}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="KeyUp">
+            <i:InvokeCommandAction Command="{Binding Stop}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding MoveUp}" Key="Up"/>
+        <KeyBinding Command="{Binding MoveDown}" Key="Down"/>
+        <KeyBinding Command="{Binding MoveLeft}" Key="Left"/>
+        <KeyBinding Command="{Binding MoveRight}" Key="Right"/>
+    </Window.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -47,6 +67,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -57,18 +78,85 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Name="NewGameBtn" Grid.Row="0" Content="{DynamicResource NewGame}" Click="newGameBtn_Click"/>
-        <Button Name="TopScoreBtn" Grid.Row="0" Content="{DynamicResource TopScore}"  Grid.Column="1"  Click="TopScoreBtn_OnClick"/>
-        <Button Name="ReserScoreBtn" Grid.Row="0" Content="{DynamicResource ClearScore}" Grid.Column="2"  
-                Command="{Binding ResetScore}" Click="ResetScoreBtn_OnClick"/>
-        <ComboBox x:Name="BlinkyAs" Grid.Row="0" Grid.Column="3" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged"  Foreground="Red"/>
-        <ComboBox Name="PinkyAs" Grid.Row="0" Grid.Column="4" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Fuchsia"/>
-        <ComboBox Name="InkyAs" Grid.Row="0" Grid.Column="5" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Blue"/>
-        <ComboBox Name="ClydeAs" Grid.Row="0" Grid.Column="6" Loaded="ghostAs_Loaded" SelectionChanged="ghostAs_SelectionChanged" Foreground="Orange"/>
-        <ComboBox Name="LanguageBox" Grid.Row="0" Grid.Column ="7" Loaded="LanguageBox_OnLoaded" SelectionChanged="LanguageBox_SelectionChanged"/>
-        <Canvas Name="FieldCan" Grid.Row="1" Grid.RowSpan="34" Grid.Column="0" Grid.ColumnSpan="8" Background="Black">
-        </Canvas>
-        <TextBlock Name="Records" Grid.Row="1" Grid.RowSpan="34" Grid.Column="0" Grid.ColumnSpan="8" Background="White" Foreground="Black">
-        </TextBlock>
+        
+        <Button Name="NewGameBtn" Grid.Row="0" Content="{DynamicResource NewGame}" 
+                Command="{Binding BeginGame}"/>
+        
+        <Button Name="TopScoreBtn" Grid.Row="0" Content="{DynamicResource TopScore}"  
+                Grid.Column="1" Command="{Binding ShowScore}"/>
+        
+        <Button Name="ReserScoreBtn" Grid.Row="0" Content="{DynamicResource ClearScore}" 
+                Grid.Column="2" Command="{Binding ResetScore}"/>
+        
+        <ComboBox x:Name="BlinkyAs" Grid.Row="0" Grid.Column="3" Foreground="Red">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding LoadPlugins}"/>
+                    <i:InvokeCommandAction Command="{Binding SetBlinkyPlugin}" CommandParameter=
+                                           "{Binding ElementName=ClydeAs, Path=SelectedItem}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SetBlinkyPlugin}" CommandParameter=
+                                           "{Binding ElementName=BlinkyAs, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        
+        <ComboBox Name="PinkyAs" Grid.Row="0" Grid.Column="4" Foreground="Fuchsia">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding LoadPlugins}"/>
+                    <i:InvokeCommandAction Command="{Binding SetPinkyPlugin}" CommandParameter=
+                                           "{Binding ElementName=ClydeAs, Path=SelectedItem}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SetPinkyPlugin}" CommandParameter=
+                                           "{Binding ElementName=PinkyAs, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+
+        <ComboBox Name="InkyAs" Grid.Row="0" Grid.Column="5" Foreground="Blue">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding LoadPlugins}"/>
+                    <i:InvokeCommandAction Command="{Binding SetInkyPlugin}" CommandParameter=
+                                           "{Binding ElementName=ClydeAs, Path=SelectedItem}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SetInkyPlugin}" CommandParameter=
+                                           "{Binding ElementName=InkyAs, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+
+        <ComboBox Name="ClydeAs" Grid.Row="0" Grid.Column="6" Foreground="Orange">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding LoadPlugins}"/>
+                    <i:InvokeCommandAction Command="{Binding SetClydePlugin}" CommandParameter=
+                                           "{Binding ElementName=ClydeAs, Path=SelectedItem}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SetClydePlugin}" CommandParameter=
+                                           "{Binding ElementName=ClydeAs, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+
+        <ComboBox Name="LanguageBox" Grid.Row="0" Grid.Column ="7" Loaded="LanguageBox_OnLoaded" 
+                  SelectionChanged="LanguageBox_SelectionChanged">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding ShowScore}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        
+        <Canvas Name="FieldCan" Grid.Row="1" Grid.RowSpan="34" Grid.Column="0" 
+                Grid.ColumnSpan="8" Background="Black"/>
+        
+        <TextBlock Name="Records" Grid.Row="1" Grid.RowSpan="34" Grid.Column="0" 
+                   Grid.ColumnSpan="8" Background="White" Foreground="Black"/>
     </Grid>
 </Window>

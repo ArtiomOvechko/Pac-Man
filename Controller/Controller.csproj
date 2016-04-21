@@ -67,7 +67,14 @@
   <ItemGroup>
     <Compile Include="Core\ActionCommand.cs" />
     <Compile Include="Core\CoreController.cs" />
-    <Compile Include="Interface\ICoreController.cs" />
+    <Compile Include="Core\ControllerSingleton.cs" />
+    <Compile Include="Core\RelayCommand.cs" />
+    <Compile Include="Interfaces\ICoreController.cs" />
+    <Compile Include="Interfaces\ILevelChangeObserver.cs" />
+    <Compile Include="Interfaces\IMovingObserver.cs" />
+    <Compile Include="Interfaces\IPacManObservable.cs" />
+    <Compile Include="Interfaces\IDbObserver.cs" />
+    <Compile Include="Interfaces\IPluginsObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

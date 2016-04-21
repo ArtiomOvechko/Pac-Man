@@ -14,11 +14,11 @@ using PackMan.Interfaces;
 using RecordsDb.Core;
 using RecordsDb.Interface;
 
-using Controller.Interface;
+using Controller.Interfaces;
 
 namespace Controller.Core
 {
-    public class CoreController: ICoreController
+    public class CoreController: ICoreController, IPacManObservable
     {
         // Ghost model state updater
         private readonly DispatcherTimer _parallelTicker = new DispatcherTimer();
@@ -29,6 +29,14 @@ namespace Controller.Core
         private IPlayer _player;
 
         private List<BaseGhostBehavior> _behaviors;
+
+        private List<IDbObserver> _dbObservers;
+
+        private List<IMovingObserver> _movingObservers;
+
+        private List<ILevelChangeObserver> _levelChangeObservers;
+
+        private List<IPluginsObserver> _pluginsObservers; 
 
         private readonly string _pathPlug;
 
@@ -51,17 +59,30 @@ namespace Controller.Core
         }
 
         // Use it to specify which ghost was selected when applying plugin
-        private enum GhostType { BlinkyAs, PinkyAs, InkyAs, ClydeAs } 
+        private enum GhostType { BlinkyAs, PinkyAs, InkyAs, ClydeAs }
 
-        private IRecordsDatabase _records;
+        private RecordsDatabase _records;
 
-        private ICommand _resetScore;
+        /// <summary>
+        /// Get database instance
+        /// </summary>
+        public IRecordsDatabase Records
+        {
+            get { return _records; }
+        }
 
         public CoreController()
         {
-            // Getting relative path to plugins folder
+            // Initialization of observers collection
+            _dbObservers = new List<IDbObserver>();
+            _movingObservers = new List<IMovingObserver>();
+            _levelChangeObservers = new List<ILevelChangeObserver>();
+            _pluginsObservers = new List<IPluginsObserver>();
+
+            // Initialization of relative path to plugins folder
             _pathPlug = Path.GetDirectoryName(Process.
                 GetCurrentProcess().MainModule.FileName) + @"\Plugins";
+
             // Initializing top score database instance
             _records = new RecordsDatabase();
             _behaviors = new List<BaseGhostBehavior>(new BaseGhostBehavior[4]);
@@ -106,6 +127,10 @@ namespace Controller.Core
         private void StepTicker_Tick(object sender, EventArgs e)
         {
             _player.Level.Pacman.Move();
+            if (_player.Level.Pacman.Moving)
+            {
+                NotifyMovingObservers();
+            }
 
             // Check whether player has completed the level
             if (_player.Level.GameField.Completed())
@@ -115,13 +140,13 @@ namespace Controller.Core
                 _player.ScoreTrack += LevelScore;
             }
 
-            //Check whether player collided ghosts and act
+            //Check whether player collided ghosts
             _player.CheckCondition();
             
             //Check whether player has died
             if (_player.Lives == CriticalValue)
             {
-                _records.AddRecord(GetPlayer);
+                Records.AddRecord(GetPlayer);
                 NewGame();
             }
         }
@@ -137,6 +162,7 @@ namespace Controller.Core
                 _player.Level.FleeTime--;
             else
                 _player.Level.SetNormal();
+            NotifyMovingObservers();
         }
 
         /// <summary>
@@ -147,6 +173,7 @@ namespace Controller.Core
             StopGameProcess();
             InitLevel();
             StartGameProcess();
+            NotifyLevelChangeObservers();
         }
 
         /// <summary>
@@ -156,51 +183,37 @@ namespace Controller.Core
         {
             InitFirstLevel();
             StartGameProcess();
+            NotifyLevelChangeObservers();
         }
 
-        /// <summary>
-        /// Handle key input and choose direction of pacman to move
-        /// </summary>
-        /// <param name="e"></param>
-        public void PressAction(KeyEventArgs e)
+        public void MoveUp()
         {
-            if (_player != null)
-            {
-                if (e.Key == Key.Up)
-                {
-                    _player.Level.Pacman.Moving = true;
-                    _player.Level.Pacman.Direction = 
-                        (int)Direction.North;
-                    e.Handled = true;
-                }
-                if (e.Key == Key.Down)
-                {
-                    _player.Level.Pacman.Moving = true;
-                    _player.Level.Pacman.Direction = 
-                        (int)Direction.South;
-                    e.Handled = true;
-                }
-                if (e.Key == Key.Right)
-                {
-                    _player.Level.Pacman.Moving = true;
-                    _player.Level.Pacman.Direction = 
-                        (int)Direction.East;
-                    e.Handled = true;
-                }
-                if (e.Key == Key.Left)
-                {
-                    _player.Level.Pacman.Moving = true;
-                    _player.Level.Pacman.Direction = 
-                        (int)Direction.West;
-                    e.Handled = true;
-                }
-            }
+            _player.Level.Pacman.Direction =
+                (int)Direction.North;
         }
 
-        public void ReleaseAction()
+        public void MoveDown()
         {
-            if (_player != null)
-                _player.Level.Pacman.Moving = false;
+            _player.Level.Pacman.Direction =
+                (int)Direction.South;
+        }
+
+        public void MoveRight()
+        {
+            _player.Level.Pacman.Direction =
+                (int)Direction.East;
+        }
+
+        public void MoveLeft()
+        {
+            _player.Level.Pacman.Direction =
+                (int)Direction.West;
+        }
+
+        public void Move(bool condition)
+        {
+            if(GetPlayer!=null)
+                GetPlayer.Level.Pacman.Moving = condition;
         }
 
         public List<string> GetLibraries
@@ -213,40 +226,12 @@ namespace Controller.Core
             }
         }
 
-        public void SetBehavior(string ghostName, string path)
+        public void SetBehavior(int behaviorIndex, string path)
         {
-            var t = typeof(BaseGhostBehavior);
-            if (path != null)
-            {
-                var type = Assembly.LoadFrom(path).GetTypes().
+            var t = typeof (BaseGhostBehavior);
+            var type = Assembly.LoadFrom(path).GetTypes().
                     FirstOrDefault(a => t.IsAssignableFrom(a) && !a.IsAbstract);
-                if (type != null)
-                {
-                    GhostType ghostSelected = (GhostType)Enum.
-                        Parse(typeof (GhostType), ghostName);
-                    switch (ghostSelected)
-                    {
-                        case GhostType.BlinkyAs:
-                            _behaviors[0] = (BaseGhostBehavior) 
-                                Activator.CreateInstance(type);
-                            break;
-                        case GhostType.PinkyAs:
-                            _behaviors[1] = (BaseGhostBehavior) 
-                                Activator.CreateInstance(type);
-                            break;
-                        case GhostType.InkyAs:
-                            _behaviors[2] = (BaseGhostBehavior) 
-                                Activator.CreateInstance(type);
-                            break;
-                        case GhostType.ClydeAs:
-                            _behaviors[3] = (BaseGhostBehavior) 
-                                Activator.CreateInstance(type);
-                            break;
-                    }
-                    return;
-                }
-            }
-            throw new ArgumentException();
+            _behaviors[behaviorIndex] = (BaseGhostBehavior)Activator.CreateInstance(type);
         }
 
         private void StartGameProcess()
@@ -263,20 +248,80 @@ namespace Controller.Core
             _parallelTicker.Stop();
         }
 
-        public DataTable SelectRecord()
+        public DataTable SelectRecords()
         {
-            return _records.SelectRecords();
+            return Records.SelectRecords();
         }
 
-        public ICommand ResetScore
+        public void RegisterDbObserver(IDbObserver observer)
         {
-            get
+            _dbObservers.Add(observer);
+        }    
+
+        public void RegisterLevelChangeObserver(ILevelChangeObserver observer)
+        {
+            _levelChangeObservers.Add(observer);
+        }
+
+        public void RegisterMovingObserver(IMovingObserver observer)
+        {
+            _movingObservers.Add(observer);
+        }
+
+        public void RegisterPluginsObserver(IPluginsObserver observer)
+        {
+            _pluginsObservers.Add(observer);
+        }
+
+        public void RemoveDbObserver(IDbObserver observer)
+        {
+            _dbObservers.Remove(observer);
+        }
+
+        public void RemoveLevelChangeObserver(ILevelChangeObserver observer)
+        {
+            _levelChangeObservers.Remove(observer);
+        }
+
+        public void RemoveMovingObservers(IMovingObserver observer)
+        {
+            _movingObservers.Remove(observer);
+        }
+
+        public void RemovePluginsObservers(IPluginsObserver observer)
+        {
+            _pluginsObservers.Remove(observer);
+        }
+
+        public void NotifyDbObservers()
+        {
+            foreach (IDbObserver observer in _dbObservers)
             {
-                return _resetScore
-                       ?? (_resetScore = new ActionCommand(() =>
-                       {
-                          _records.DeleteRecords();
-                       }));
+                observer.Update(Records);
+            }
+        }
+
+        public void NotifyMovingObservers()
+        {
+            foreach (IMovingObserver observer in _movingObservers)
+            {
+                observer.Update(GetPlayer);
+            }
+        }
+
+        public void NotifyLevelChangeObservers()
+        {
+            foreach (ILevelChangeObserver observer in _levelChangeObservers)
+            {
+                observer.Update(GetPlayer);
+            }
+        }
+
+        public void NotifyPluginsObservers()
+        {
+            foreach (IPluginsObserver observer in _pluginsObservers)
+            {
+                observer.Update(GetLibraries);
             }
         }
     }

@@ -5,3 +5,10 @@ C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Ghost\bin\Debug\Pack
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Ghost\obj\Debug\Ghost.csprojResolveAssemblyReference.cache
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Ghost\obj\Debug\Ghost.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Ghost\obj\Debug\Ghost.pdb
+C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\Ghost\bin\Debug\Ghost.dll
+C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\Ghost\bin\Debug\Ghost.pdb
+C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\Ghost\bin\Debug\PackMan.dll
+C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\Ghost\bin\Debug\PackMan.pdb
+C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\Ghost\obj\Debug\Ghost.csprojResolveAssemblyReference.cache
+C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\Ghost\obj\Debug\Ghost.dll
+C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\Ghost\obj\Debug\Ghost.pdb
