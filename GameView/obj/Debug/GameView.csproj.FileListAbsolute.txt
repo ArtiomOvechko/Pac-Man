@@ -40,3 +40,6 @@ C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\k
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\ru\System.Windows.Interactivity.resources.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\GameView.exe.config
+C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\GameView.exe
+C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\GameView.pdb
