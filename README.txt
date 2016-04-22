@@ -29,4 +29,4 @@ PLUGINS
 ==============================
 In order to implement your own
 behavior of ghost you need to
-use Ghost.dll in Ghost/Bin/Debug.
+use PacMan.dll in PacMan/Bin/Debug
