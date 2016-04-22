@@ -20,7 +20,7 @@ to be installed on your system.
 INSTALLATION
 ==============================
 Game core folder is compressed 
-in PacManGame.zip file. Just
+in GameStandalone.zip file. Just
 extract it wherever you want
 and run GameView.exe
 
