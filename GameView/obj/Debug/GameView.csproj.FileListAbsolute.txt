@@ -14,8 +14,6 @@ c:\users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\obj\Debug\G
 c:\users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\obj\Debug\GameView.csproj.GenerateResource.Cache
 c:\users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\obj\Debug\GameView.exe
 c:\users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\obj\Debug\GameView.pdb
-C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\Ghost.dll
-C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\Ghost.pdb
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\EntityFramework.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\System.Data.SQLite.dll
@@ -42,47 +40,3 @@ C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\k
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\ru\System.Windows.Interactivity.resources.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\GameView\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\GameView.exe.config
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\GameView.exe
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\GameView.pdb
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\GameView.exe
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\GameView.pdb
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\Controller.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\EntityFramework.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\Ghost.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\PackMan.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\RecordsDb.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\System.Data.SQLite.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\System.Data.SQLite.EF6.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\System.Data.SQLite.Linq.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\System.Windows.Interactivity.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\Controller.pdb
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\RecordsDb.pdb
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\EntityFramework.xml
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\Ghost.pdb
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\PackMan.pdb
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\System.Data.SQLite.xml
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\de\System.Windows.Interactivity.resources.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\en\System.Windows.Interactivity.resources.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\es\System.Windows.Interactivity.resources.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\fr\System.Windows.Interactivity.resources.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\it\System.Windows.Interactivity.resources.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\ja\System.Windows.Interactivity.resources.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\ko\System.Windows.Interactivity.resources.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\ru\System.Windows.Interactivity.resources.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\GameView.csprojResolveAssemblyReference.cache
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\MainWindow.baml
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\Resources\lang.ru-RU.baml
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\Resources\lang.baml
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\MainWindow.g.cs
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\App.g.cs
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\GameView_MarkupCompile.cache
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\GameView_MarkupCompile.lref
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\App.baml
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\GameView.g.resources
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\GameView.Properties.Resources.resources
-C:\Users\zorka\OneDrive\Projects\InProcess\Own\PacMan\Current\GameView\obj\Debug\GameView.csproj.GenerateResource.Cache

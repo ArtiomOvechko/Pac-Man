@@ -1,5 +1,6 @@
 ﻿using System;
-using Ghost;
+
+using PackMan.Abstract;
 
 namespace BlueGhostBehavior.Behavior
 {

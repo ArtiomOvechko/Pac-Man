@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using PackMan.Entities;
+using PackMan.Interfaces;
 
-namespace Ghost
+namespace PackMan.Abstract
 {
     public abstract class BaseGhostBehavior
     {

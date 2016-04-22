@@ -1,5 +1,4 @@
-﻿using Ghost;
-
+﻿using PackMan.Abstract;
 using PackMan.Interfaces;
 
 namespace PackMan.Entities

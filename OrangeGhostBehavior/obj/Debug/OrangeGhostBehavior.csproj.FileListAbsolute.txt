@@ -1,8 +1,6 @@
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\OrangeGhostBehavior\bin\Debug\OrangeGhostBehavior.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\OrangeGhostBehavior\bin\Debug\OrangeGhostBehavior.pdb
-C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\OrangeGhostBehavior\bin\Debug\Ghost.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\OrangeGhostBehavior\bin\Debug\PackMan.dll
-C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\OrangeGhostBehavior\bin\Debug\Ghost.pdb
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\OrangeGhostBehavior\bin\Debug\PackMan.pdb
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\OrangeGhostBehavior\obj\Debug\OrangeGhostBehavior.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\OrangeGhostBehavior\obj\Debug\OrangeGhostBehavior.pdb

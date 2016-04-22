@@ -1,6 +1,4 @@
-﻿using PackMan.Interfaces;
-
-namespace Ghost
+﻿namespace PackMan.Interfaces
 {
     public interface IGhost
     {

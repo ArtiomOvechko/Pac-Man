@@ -7,14 +7,13 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 using System.Windows.Threading;
-
-using Ghost;
 using PackMan.Core;
 using PackMan.Interfaces;
 using RecordsDb.Core;
 using RecordsDb.Interface;
 
 using Controller.Interfaces;
+using PackMan.Abstract;
 
 namespace Controller.Core
 {

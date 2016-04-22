@@ -1,6 +1,4 @@
-﻿using Ghost;
-
-namespace PackMan.Interfaces
+﻿namespace PackMan.Interfaces
 {
     public interface ILevel
     {

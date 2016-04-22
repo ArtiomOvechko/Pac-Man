@@ -30,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ghost, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Ghost\bin\Debug\Ghost.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\BaseGhostBehavior.cs" />
     <Compile Include="Core\Field.cs" />
     <Compile Include="Core\Filler.cs" />
     <Compile Include="Core\Level.cs" />
@@ -59,6 +56,7 @@
     <Compile Include="Entities\Wall.cs" />
     <Compile Include="Interfaces\IField.cs" />
     <Compile Include="Interfaces\IFiller.cs" />
+    <Compile Include="Interfaces\IGhost.cs" />
     <Compile Include="Interfaces\ILevel.cs" />
     <Compile Include="Interfaces\IObstacle.cs" />
     <Compile Include="Interfaces\IPac.cs" />

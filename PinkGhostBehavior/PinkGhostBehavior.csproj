@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ghost">
-      <HintPath>..\Ghost\bin\Debug\Ghost.dll</HintPath>
-    </Reference>
     <Reference Include="PackMan, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\PackMan\bin\Debug\PackMan.dll</HintPath>

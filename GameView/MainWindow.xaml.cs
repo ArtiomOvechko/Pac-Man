@@ -1,10 +1,8 @@
 ﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 using Controller.Core;
-using Controller.Interfaces;
 
 using GameView.Entity;
 
@@ -20,11 +18,11 @@ namespace GameView
             InitializeComponent();
 
             var formatter = new ViewFormatter(this);
-            var _core = ControllerSingleton.GetInstance.Controller;
-            _core.RegisterDbObserver(formatter);
-            _core.RegisterLevelChangeObserver(formatter);
-            _core.RegisterMovingObserver(formatter);
-            _core.RegisterPluginsObserver(formatter);
+            var core = ControllerSingleton.GetInstance.Controller;
+            core.RegisterDbObserver(formatter);
+            core.RegisterLevelChangeObserver(formatter);
+            core.RegisterMovingObserver(formatter);
+            core.RegisterPluginsObserver(formatter);
         }
 
         // Handling localization elements

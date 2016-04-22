@@ -7,12 +7,10 @@ C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RecordsDb\bin\Debug\
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RecordsDb\bin\Debug\System.Data.SQLite.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RecordsDb\bin\Debug\System.Data.SQLite.EF6.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RecordsDb\bin\Debug\System.Data.SQLite.Linq.dll
-C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RecordsDb\bin\Debug\Ghost.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RecordsDb\bin\Debug\PackMan.pdb
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RecordsDb\bin\Debug\EntityFramework.xml
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RecordsDb\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RecordsDb\bin\Debug\System.Data.SQLite.xml
-C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RecordsDb\bin\Debug\Ghost.pdb
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RecordsDb\obj\Debug\RecordsDb.csprojResolveAssemblyReference.cache
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RecordsDb\obj\Debug\RecordsDb.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\RecordsDb\obj\Debug\RecordsDb.pdb

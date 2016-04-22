@@ -78,10 +78,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ghost\Ghost.csproj">
-      <Project>{8445ab0c-80bb-4fb1-9684-bba865baa3d4}</Project>
-      <Name>Ghost</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PackMan\PackMan.csproj">
       <Project>{418c38fe-2947-4e1b-8de0-881090c661e3}</Project>
       <Name>PackMan</Name>

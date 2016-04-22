@@ -1,6 +1,6 @@
-﻿using Ghost;
-using PackMan.Interfaces;
+﻿using PackMan.Interfaces;
 using PackMan.Entities;
+using PackMan.Abstract;
 
 namespace PackMan.Core
 {
