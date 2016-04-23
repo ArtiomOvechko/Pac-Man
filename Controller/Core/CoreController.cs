@@ -252,7 +252,9 @@ namespace Controller.Core
                     FirstOrDefault(a => t.IsAssignableFrom(a) && !a.IsAbstract);
 
                 if (type != null)
+                {
                     _behaviors[behaviorIndex] = (BaseGhostBehavior) Activator.CreateInstance(type);
+                }
                 else
                 {
                     throw new Exception();

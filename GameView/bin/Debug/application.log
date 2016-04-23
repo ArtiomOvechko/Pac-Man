@@ -2,3 +2,15 @@
    at Controller.Core.CoreController.get_GetLibraries() in C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Controller\Core\CoreController.cs:line 234
 2016-04-23 21:55:31,483 ERROR Controller.Core.ExceptionHandler - System.IO.FileNotFoundException: NoLibrariesError
    at Controller.Core.CoreController.get_GetLibraries() in C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Controller\Core\CoreController.cs:line 234
+2016-04-23 23:02:57,200 WARN Controller.Core.CoreController - type applied
+2016-04-23 23:02:57,233 WARN Controller.Core.CoreController - type not null
+2016-04-23 23:02:57,244 WARN Controller.Core.CoreController - behavior implemented
+2016-04-23 23:02:57,255 WARN Controller.Core.CoreController - type applied
+2016-04-23 23:02:57,261 WARN Controller.Core.CoreController - type not null
+2016-04-23 23:02:57,269 WARN Controller.Core.CoreController - behavior implemented
+2016-04-23 23:02:57,276 WARN Controller.Core.CoreController - type applied
+2016-04-23 23:02:57,282 WARN Controller.Core.CoreController - type not null
+2016-04-23 23:02:57,288 WARN Controller.Core.CoreController - behavior implemented
+2016-04-23 23:02:57,297 WARN Controller.Core.CoreController - type applied
+2016-04-23 23:02:57,303 WARN Controller.Core.CoreController - type not null
+2016-04-23 23:02:57,309 WARN Controller.Core.CoreController - behavior implemented
