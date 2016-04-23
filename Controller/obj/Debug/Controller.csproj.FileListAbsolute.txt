@@ -16,3 +16,5 @@ C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Controller\obj\Debug
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Controller\obj\Debug\Controller.pdb
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Controller\bin\Debug\System.Data.SQLite.EF6.dll
 C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Controller\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Controller\bin\Debug\log4net.dll
+C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Controller\bin\Debug\log4net.xml

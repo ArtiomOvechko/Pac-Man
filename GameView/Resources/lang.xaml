@@ -7,6 +7,8 @@
     <v:String x:Key="NewGame">New game</v:String>
     <v:String x:Key="TopScore">Top score</v:String>
     <v:String x:Key="ClearScore">Clear top score</v:String>
-    <v:String x:Key="PlugInError">No plugins available! Please put your plug-in in Plugins subfolder and restart the game.</v:String>
+    <v:String x:Key="NoLibrariesError">No plugins available! Please put your plug-in in Plugins subfolder and restart the game.</v:String>
+    <v:String x:Key="IncorrectLibraryError">An error occured when the game was trying to apply one plugin (maybe it was not a plugin). Try to left only last stable plugins and restart the game</v:String>
+    <v:String x:Key="DataBaseError">Something went wront with top score database. Reinstall the game and try again.</v:String>
     <v:String x:Key="GreetingMessage">Choose an approprite behavior plugin for each ghost from the top-right corner lists (you can choose the same behavior for different ghosts)</v:String>
 </ResourceDictionary>

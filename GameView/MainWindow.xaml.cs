@@ -19,10 +19,12 @@ namespace GameView
 
             var formatter = new ViewFormatter(this);
             var core = ControllerSingleton.GetInstance.Controller;
+            var exceptionObservable = ControllerSingleton.GetInstance.Controller.GetExceptionObservable;
             core.RegisterDbObserver(formatter);
             core.RegisterLevelChangeObserver(formatter);
             core.RegisterMovingObserver(formatter);
             core.RegisterPluginsObserver(formatter);
+            exceptionObservable.RegisterExceptionObserver(formatter);
         }
 
         // Handling localization elements

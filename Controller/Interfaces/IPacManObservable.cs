@@ -10,9 +10,9 @@
 
         void RegisterPluginsObserver(IPluginsObserver observer);
 
-        void RemoveLevelChangeObserver(ILevelChangeObserver observer);
-
         void RemoveDbObserver(IDbObserver observer);
+
+        void RemoveLevelChangeObserver(ILevelChangeObserver observer);
 
         void RemoveMovingObservers(IMovingObserver observer);
 

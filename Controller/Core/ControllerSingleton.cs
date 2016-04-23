@@ -1,5 +1,7 @@
 ﻿using System.Windows.Input;
 
+using Controller.Interfaces;
+
 namespace Controller.Core
 {
     public class ControllerSingleton
@@ -45,7 +47,7 @@ namespace Controller.Core
         /// <summary>
         /// Game core controller
         /// </summary>
-        public readonly CoreController Controller;
+        public readonly ICoreController Controller;
 
         public ControllerSingleton()
         {
@@ -79,7 +81,7 @@ namespace Controller.Core
                        ?? (_resetScore = new ActionCommand(() =>
                        {
                            GetInstance.Controller.StopGameProcess();
-                           GetInstance.Controller.Records.DeleteRecords();
+                           GetInstance.Controller.DeleteRecords();
                            GetInstance.Controller.NotifyDbObservers();
                        }));
             }

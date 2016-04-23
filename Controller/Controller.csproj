@@ -40,6 +40,10 @@
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -68,8 +72,12 @@
     <Compile Include="Core\ActionCommand.cs" />
     <Compile Include="Core\CoreController.cs" />
     <Compile Include="Core\ControllerSingleton.cs" />
+    <Compile Include="Core\ExceptionHandler.cs" />
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Interfaces\ICoreController.cs" />
+    <Compile Include="Interfaces\IExceptionHandler.cs" />
+    <Compile Include="Interfaces\IExceptionObservable.cs" />
+    <Compile Include="Interfaces\IExceptionObserver.cs" />
     <Compile Include="Interfaces\ILevelChangeObserver.cs" />
     <Compile Include="Interfaces\IMovingObserver.cs" />
     <Compile Include="Interfaces\IPacManObservable.cs" />

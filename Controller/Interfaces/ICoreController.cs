@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Data;
-using System.Windows.Input;
 
 using PackMan.Interfaces;
 
 namespace Controller.Interfaces
 {
-    public interface ICoreController
+    public interface ICoreController: IPacManObservable
     {
         void NewGame();
 
         void NextLevel();
+
+        void Move(bool condition);
 
         void MoveUp();
 
@@ -20,9 +21,11 @@ namespace Controller.Interfaces
 
         void MoveLeft();
 
-        //void PressAction(KeyEventArgs e);
+        IExceptionHandler GetExceptionObservable { get; }
 
-        //void ReleaseAction();
+        List<string> GetLibraries { get; }
+
+        IPlayer GetPlayer { get; }
 
         void SetBehavior(int behaviorIndex, string path);
 
@@ -30,8 +33,8 @@ namespace Controller.Interfaces
 
         DataTable SelectRecords();
 
-        List<string> GetLibraries { get; }
+        void DeleteRecords();
 
-        IPlayer GetPlayer { get; }
+        void InsertRecords(IPlayer player);
     }
 }

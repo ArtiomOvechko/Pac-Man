@@ -6,54 +6,52 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using Controller.Core;
+
 using Controller.Interfaces;
 using PackMan.Entities;
-
 using PackMan.Interfaces;
-using RecordsDb.Interface;
 
 namespace GameView.Entity
 {
-    public class ViewFormatter: IMovingObserver, ILevelChangeObserver, IDbObserver, IPluginsObserver
+    public class ViewFormatter: IMovingObserver, ILevelChangeObserver, IDbObserver, IPluginsObserver, IExceptionObserver
     {
-        private MainWindow _window;
+        private readonly MainWindow _window;
 
-        private Canvas _fieldCanvas;
+        private readonly Canvas _fieldCanvas;
 
-        private BitmapImage _dotImg;
+        private readonly BitmapImage _dotImg;
 
-        private BitmapImage _emptyImg;
+        private readonly BitmapImage _emptyImg;
 
-        private BitmapImage _wallImg;
+        private readonly BitmapImage _wallImg;
 
-        private BitmapImage _cherryImg;
+        private readonly BitmapImage _cherryImg;
 
-        private BitmapImage _bonusImg;
+        private readonly BitmapImage _bonusImg;
 
-        private BitmapImage _blinkyImg;
+        private readonly BitmapImage _blinkyImg;
 
-        private BitmapImage _pinkyImg;
+        private readonly BitmapImage _pinkyImg;
 
-        private BitmapImage _inkyImg;
+        private readonly BitmapImage _inkyImg;
 
-        private BitmapImage _clydeImg;
+        private readonly BitmapImage _clydeImg;
 
-        private BitmapImage _fleeImg;
+        private readonly BitmapImage _fleeImg;
 
-        private Image[,] _imgField;
+        private readonly Image[,] _imgField;
 
-        private Image _inkyPic;
+        private readonly Image _inkyPic;
 
-        private Image _pacPic;
+        private readonly Image _pacPic;
 
-        private Image _pinkyPic;
+        private readonly Image _pinkyPic;
 
-        private Image _blinkyPic;
+        private readonly Image _blinkyPic;
 
-        private Image _clydePic;
+        private readonly Image _clydePic;
 
-        private string _pathPic;
+        private readonly string _pathPic;
 
         private const int CellSize = 20;
 
@@ -64,9 +62,6 @@ namespace GameView.Entity
         private const string WindowBasicTitle = "Pac-Man Game";
 
         private const int ComboDefaultIndex = 0;
-
-        private int _currentLevel = 1;
-
 
         public ViewFormatter(MainWindow window)
         {
@@ -240,10 +235,10 @@ namespace GameView.Entity
             _window.Records.Visibility = Visibility.Hidden;
         }
 
-        void IDbObserver.Update(IRecordsDatabase database)
+        void IDbObserver.Update(DataTable data)
         {
             ChangeComboStatus(true);
-            FormatRecords(database.SelectRecords());
+            FormatRecords(data);
             _window.Records.Visibility = Visibility.Visible;
         }
 
@@ -253,6 +248,12 @@ namespace GameView.Entity
             FillLibraries(_window.PinkyAs, itemList);
             FillLibraries(_window.InkyAs, itemList);
             FillLibraries(_window.ClydeAs, itemList);
+        }
+
+        public void Update(string exceptionLocalizationResourceKey)
+        {
+            MessageBox.Show(_window.FindResource(exceptionLocalizationResourceKey).ToString());
+            _window.Close();
         }
     }
 }

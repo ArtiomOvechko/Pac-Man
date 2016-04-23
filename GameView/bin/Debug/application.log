@@ -1,0 +1,4 @@
+2016-04-23 21:52:09,075 ERROR Controller.Core.ExceptionHandler - System.IO.FileNotFoundException: NoLibrariesError
+   at Controller.Core.CoreController.get_GetLibraries() in C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Controller\Core\CoreController.cs:line 234
+2016-04-23 21:55:31,483 ERROR Controller.Core.ExceptionHandler - System.IO.FileNotFoundException: NoLibrariesError
+   at Controller.Core.CoreController.get_GetLibraries() in C:\Users\zorka\documents\visual studio 2015\Projects\PacMan\Controller\Core\CoreController.cs:line 234

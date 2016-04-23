@@ -17,14 +17,14 @@ namespace RecordsDb.Core
                 ConnectionStrings["RecordsDbString"].ConnectionString;
         }
 
-        public void AddRecord(IPlayer player)
+        public void AddRecord(int score)
         {
             using (SQLiteConnection conn = new SQLiteConnection(GetConnectionString()))
             {
                 conn.Open();
                 string sql =
                     $"insert into highscores (name, score) values " +
-                    $"('{Environment.MachineName}', {player.Score.ToString()})";
+                    $"('{Environment.MachineName}', {score.ToString()})";
                 SQLiteCommand command = new SQLiteCommand(sql, conn);
                 command.ExecuteNonQuery();
             }

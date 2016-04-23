@@ -1,9 +1,10 @@
-﻿using RecordsDb.Interface;
+﻿using System.Data;
+using RecordsDb.Interface;
 
 namespace Controller.Interfaces
 {
     public interface IDbObserver
     {
-        void Update(IRecordsDatabase database);
+        void Update(DataTable data);
     }
 }

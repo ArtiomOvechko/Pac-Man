@@ -8,7 +8,7 @@ namespace RecordsDb.Interface
     {
         DataTable SelectRecords();
 
-        void AddRecord(IPlayer player);
+        void AddRecord(int score);
 
         void DeleteRecords();
     }

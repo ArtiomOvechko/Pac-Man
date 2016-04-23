@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Input;
 using System.Windows.Threading;
 using PackMan.Core;
 using PackMan.Interfaces;
@@ -17,7 +16,7 @@ using PackMan.Abstract;
 
 namespace Controller.Core
 {
-    public class CoreController: ICoreController, IPacManObservable
+    public class CoreController: ICoreController
     {
         // Ghost model state updater
         private readonly DispatcherTimer _parallelTicker = new DispatcherTimer();
@@ -35,7 +34,7 @@ namespace Controller.Core
 
         private List<ILevelChangeObserver> _levelChangeObservers;
 
-        private List<IPluginsObserver> _pluginsObservers; 
+        private List<IPluginsObserver> _pluginsObservers;
 
         private readonly string _pathPlug;
 
@@ -57,10 +56,9 @@ namespace Controller.Core
             West = 4
         }
 
-        // Use it to specify which ghost was selected when applying plugin
-        private enum GhostType { BlinkyAs, PinkyAs, InkyAs, ClydeAs }
-
         private RecordsDatabase _records;
+
+        private IExceptionHandler _exceptionHandler;
 
         /// <summary>
         /// Get database instance
@@ -68,6 +66,11 @@ namespace Controller.Core
         public IRecordsDatabase Records
         {
             get { return _records; }
+        }
+
+        public IExceptionHandler GetExceptionObservable
+        {
+            get { return _exceptionHandler; }
         }
 
         public CoreController()
@@ -86,6 +89,9 @@ namespace Controller.Core
             _records = new RecordsDatabase();
             _behaviors = new List<BaseGhostBehavior>(new BaseGhostBehavior[4]);
             AddEventHandlers();
+
+            //Initializing exception handler
+            _exceptionHandler = new ExceptionHandler();
         }
 
         public IPlayer GetPlayer
@@ -145,7 +151,7 @@ namespace Controller.Core
             //Check whether player has died
             if (_player.Lives == CriticalValue)
             {
-                Records.AddRecord(GetPlayer);
+                InsertRecords(GetPlayer);
                 NewGame();
             }
         }
@@ -219,18 +225,43 @@ namespace Controller.Core
         {
             get
             {
-                var data = new List<string>();
-                data.AddRange(Directory.EnumerateFiles(_pathPlug, "*.dll"));
-                return data;
+                try
+                {
+                    var data = new List<string>();
+                    data.AddRange(Directory.EnumerateFiles(_pathPlug, "*.dll"));
+                    if (data.Count == 0)
+                    {
+                        throw new FileNotFoundException("NoLibrariesError");
+                    }
+                    return data;
+                }
+                catch (FileNotFoundException ex)
+                {
+                    _exceptionHandler.HandleException(ex);
+                    return null;
+                }
             }
         }
 
         public void SetBehavior(int behaviorIndex, string path)
         {
             var t = typeof (BaseGhostBehavior);
-            var type = Assembly.LoadFrom(path).GetTypes().
+            try
+            {
+                var type = Assembly.LoadFrom(path).GetTypes().
                     FirstOrDefault(a => t.IsAssignableFrom(a) && !a.IsAbstract);
-            _behaviors[behaviorIndex] = (BaseGhostBehavior)Activator.CreateInstance(type);
+
+                if (type != null)
+                    _behaviors[behaviorIndex] = (BaseGhostBehavior) Activator.CreateInstance(type);
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception)
+            {
+                _exceptionHandler.HandleException(new Exception("IncorrectLibraryError"));
+            }
         }
 
         private void StartGameProcess()
@@ -247,15 +278,48 @@ namespace Controller.Core
             _parallelTicker.Stop();
         }
 
+
+        public void DeleteRecords()
+        {
+            try
+            {
+                _records.DeleteRecords();
+            }
+            catch (Exception)
+            {
+                _exceptionHandler.HandleException(new Exception("DataBaseError"));
+            }
+        }
+
+        public void InsertRecords(IPlayer player)
+        {
+            try
+            {
+                _records.AddRecord(player.Score);
+            }
+            catch (Exception)
+            {
+                _exceptionHandler.HandleException(new Exception("DataBaseError"));
+            }
+        }
+
         public DataTable SelectRecords()
         {
-            return Records.SelectRecords();
+            try
+            {
+                return Records.SelectRecords();
+            }
+            catch (Exception)
+            {
+                _exceptionHandler.HandleException(new Exception("DataBaseError"));
+                return null;
+            }
         }
 
         public void RegisterDbObserver(IDbObserver observer)
         {
             _dbObservers.Add(observer);
-        }    
+        }
 
         public void RegisterLevelChangeObserver(ILevelChangeObserver observer)
         {
@@ -296,7 +360,7 @@ namespace Controller.Core
         {
             foreach (IDbObserver observer in _dbObservers)
             {
-                observer.Update(Records);
+                observer.Update(SelectRecords());
             }
         }
 
