@@ -138,7 +138,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -147,10 +149,6 @@
     <ProjectReference Include="..\Controller\Controller.csproj">
       <Project>{030bf887-641d-444c-957d-cef065616f7d}</Project>
       <Name>Controller</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RecordsDb\RecordsDb.csproj">
-      <Project>{9b9f2c92-c20d-41a6-8793-c78086f61a00}</Project>
-      <Name>RecordsDb</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

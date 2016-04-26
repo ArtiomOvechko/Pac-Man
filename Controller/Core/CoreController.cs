@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Threading;
+
 using PackMan.Core;
 using PackMan.Interfaces;
 using RecordsDb.Core;
@@ -26,15 +27,15 @@ namespace Controller.Core
 
         private IPlayer _player;
 
-        private List<BaseGhostBehavior> _behaviors;
+        private readonly List<BaseGhostBehavior> _behaviors;
 
-        private List<IDbObserver> _dbObservers;
+        private readonly List<IDbObserver> _dbObservers;
 
-        private List<IMovingObserver> _movingObservers;
+        private readonly List<IMovingObserver> _movingObservers;
 
-        private List<ILevelChangeObserver> _levelChangeObservers;
+        private readonly List<ILevelChangeObserver> _levelChangeObservers;
 
-        private List<IPluginsObserver> _pluginsObservers;
+        private readonly List<IPluginsObserver> _pluginsObservers;
 
         private readonly string _pathPlug;
 
@@ -56,22 +57,16 @@ namespace Controller.Core
             West = 4
         }
 
-        private RecordsDatabase _records;
+        private readonly RecordsDatabase _records;
 
-        private IExceptionHandler _exceptionHandler;
+        private readonly IExceptionHandler _exceptionHandler;
 
         /// <summary>
         /// Get database instance
         /// </summary>
-        public IRecordsDatabase Records
-        {
-            get { return _records; }
-        }
+        public IRecordsDatabase Records => _records;
 
-        public IExceptionHandler GetExceptionObservable
-        {
-            get { return _exceptionHandler; }
-        }
+        public IExceptionHandler GetExceptionObservable => _exceptionHandler;
 
         public CoreController()
         {
@@ -94,10 +89,7 @@ namespace Controller.Core
             _exceptionHandler = new ExceptionHandler();
         }
 
-        public IPlayer GetPlayer
-        {
-            get { return _player; }
-        }
+        public IPlayer GetPlayer => _player;
 
         private void AddEventHandlers()
         {
@@ -257,12 +249,13 @@ namespace Controller.Core
                 }
                 else
                 {
-                    throw new Exception();
+                    throw new Exception("IncorrectLibraryError");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                _exceptionHandler.HandleException(new Exception("IncorrectLibraryError"));
+                //_exceptionHandler.HandleException(new Exception("IncorrectLibraryError"));
+                _exceptionHandler.HandleException(ex);
             }
         }
 
